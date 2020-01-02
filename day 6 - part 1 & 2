@@ -1,0 +1,139 @@
+i = open("C:/Projecten/d6.txt", "r")
+data = i.read().splitlines()
+lijst = []
+lijst2 = []
+teller = 0
+teller1 = 0
+teller2 = 1
+orbits = 0
+totaal = 0
+san = []
+you = []
+
+for e in data:
+    if e[0:3] == "COM":
+        lijst.append(e + str(teller)+str(teller1)+str(teller2))
+
+for d in range(len(data)):
+    for e in lijst:
+        if e[7] == str(teller):
+            if e[8] == str(teller1):
+                if e[9] == str(teller2):
+                    for f in data:
+                        letters = str(e[4]) + str(e[5]) + str(e[6])
+                        if f[0:3] == str(letters):
+                            if teller2 == 9:
+                                if teller1 == 9:
+                                    lijst.append(f + str(teller + 1) + "0" + "0")
+                                else:        
+                                    lijst.append(f + str(teller) + str(teller1 + 1) + "0")
+                            else:
+                                lijst.append(f + str(teller) + str(teller1) + str(teller2 + 1))
+                    
+    teller2 += 1
+    if teller2 == 10:
+        teller2 = 0
+        teller1 += 1
+        if teller1 == 10:
+            teller1 = 0
+            teller += 1
+            
+for e in lijst:
+    orbits = str(e[7]) + str(e[8]) + str(e[9])
+    totaal += int(orbits)
+
+
+#part 1:
+print(totaal)
+#271151
+
+
+
+
+teller = 0
+teller1 = 0
+teller2 = 0
+
+
+for e in data:
+    lijst2.append(e[::-1])
+
+j = open("C:/Projecten/d62.txt", "r")
+data2 = i.read().split("', '")
+
+
+for e in lijst2:
+    if e[0:3] == "NAS":       
+        san.append(e + str(teller)+str(teller1)+str(teller2))
+    elif e[0:3] == "UOY":
+        you.append(e + str(teller)+str(teller1)+str(teller2))
+        
+
+for d in range(len(data)):
+    for e in san:
+        if e[7] == str(teller):
+            if e[8] == str(teller1):
+                if e[9] == str(teller2):
+                    for f in lijst2:
+                        letters = str(e[4]) + str(e[5]) + str(e[6])
+                        if f[0:3] == str(letters):
+                            if teller2 == 9:
+                                if teller1 == 9:
+                                    san.append(f + str(teller + 1) + "0" + "0")
+                                else:        
+                                    san.append(f + str(teller) + str(teller1 + 1) + "0")
+                            else:
+                                san.append(f + str(teller) + str(teller1) + str(teller2 + 1))
+                    
+    teller2 += 1
+    if teller2 == 10:
+        teller2 = 0
+        teller1 += 1
+        if teller1 == 10:
+            teller1 = 0
+            teller += 1
+        
+teller = 0
+teller1 = 0
+teller2 = 0
+
+for d in range(len(data)):
+    for e in you:
+        if e[7] == str(teller):
+            if e[8] == str(teller1):
+                if e[9] == str(teller2):
+                    for f in lijst2:
+                        letters = str(e[4]) + str(e[5]) + str(e[6])
+                        if f[0:3] == str(letters):
+                            if teller2 == 9:
+                                if teller1 == 9:
+                                    you.append(f + str(teller + 1) + "0" + "0")
+                                else:        
+                                    you.append(f + str(teller) + str(teller1 + 1) + "0")
+                            else:
+                                you.append(f + str(teller) + str(teller1) + str(teller2 + 1))
+                    
+    teller2 += 1
+    if teller2 == 10:
+        teller2 = 0
+        teller1 += 1
+        if teller1 == 10:
+            teller1 = 0
+            teller += 1
+
+combis = []
+
+
+for e in san:
+    for f in you:
+        if e[0:-3] == f[0:-3]:
+            temp = (e, f)
+            combis.append(temp)
+
+lengte = 0
+for e in combis[0]:
+    lengte += (int(e[-3:]) - 1)
+
+#part 2:
+print(lengte)
+#388
