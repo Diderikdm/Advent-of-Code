@@ -1,0 +1,236 @@
+i = open("C:/Projecten/d10.txt", "r")
+data = i.read().splitlines()
+ast = []
+x = 0
+y = 0
+maxasteroids = 0
+coor = 0
+coord = []
+rb = []
+rb2 = []
+rb3 = 0
+ro = []
+ro2 = []
+ro3 = 0
+lo = []
+lo2 = []
+lo3 = 0
+lb = []
+lb2 = []
+lb3 = 0
+nu = 0
+max = 0
+maxx = 0
+maxy = 0
+var = 0
+
+
+
+for e in data:
+    for f in range(len(data[0])):
+        if x < 10:
+            if y < 10:
+                ast.append(str(e[f]) + "0" + str(x) + "," + "0" + str(y))
+            elif y > 9:
+                ast.append(str(e[f]) + "0" + str(x) + "," + str(y))
+        elif y < 10:
+            ast.append(str(e[f]) + str(x) + "," + "0" + str(y))
+        else:
+            ast.append(str(e[f]) + str(x) + "," + str(y))
+        x += 1
+    x = 0
+    y += 1
+     
+for e in ast:
+    if e[0] == "#":
+        coor = (e[1:-3] , e[4:])
+        coord.append(coor)
+
+
+for e in coord:
+    ro.clear()
+    rb.clear()
+    lo.clear()
+    lb.clear()
+    x = int(e[0])
+    y = int(e[1])
+    for f in coord:
+        a = int(f[0])
+        b = int(f[1])
+        if f != e:
+            schuin = (((a-x)**2 + (b-y)**2)**0.5)
+            if ((a > x and b > y) or (a == x and b > y)):
+                hoek = (a - x) / schuin
+                if (round(hoek, 10)) not in rb:
+                    rb.append(round(hoek, 10))
+            elif ((a > x and b < y) or (a > x and b == y)):
+                hoek = (x - a) / schuin
+                if (round(hoek, 10)) not in ro:
+                    ro.append(round(hoek, 10))
+            elif ((a < x and b > y) or (a == x and b < y)):
+                hoek = (b - y) / schuin
+                if (round(hoek, 10)) not in lb:
+                    lb.append(round(hoek, 10))                   
+            elif ((a < x and b < y) or (a < x and b == y)):
+                hoek = (y - b) / schuin
+                if (round(hoek, 10)) not in lo:
+                    lo.append(round(hoek, 10))
+                    
+                
+    nu = len(ro) + len(rb) + len(lo) + len(lb)
+    if nu > max:
+        max = nu
+        maxx = x
+        maxy = y
+
+
+#part 1:
+print(max)
+#326
+
+
+
+
+
+c = 0      
+for f in coord:
+    a = int(f[0])
+    b = int(f[1])
+    if c == 0:
+        schuin = (((a-maxx)**2 + (b-maxy)**2)**0.5)
+        if ((a > maxx and b > maxy) or (a > maxx and b == maxy)):
+            hoek = (b - maxy) / schuin
+
+
+            ro3 = (str(round(hoek, 10)), str(a), str(b))
+            ro2.append(ro3)
+        elif ((a > maxx and b < maxy) or (a == maxx and b < maxy)):
+            hoek = (a - maxx) / schuin
+            rb3 = (str(round(hoek, 10)), str(a), str(b))
+            rb2.append(rb3)
+        elif ((a < maxx and b > maxy) or (a == maxx and b > maxy)):
+            hoek = (maxx - a) / schuin
+            lo3 = (str(round(hoek, 10)), str(a), str(b))
+            lo2.append(lo3)                 
+        elif ((a < maxx and b < maxy) or (a < maxx and b == maxy)):
+            hoek = (maxy - b) / schuin
+            lb3 = (str(round(hoek, 10)), str(a), str(b))
+            lb2.append(lb3)
+
+
+
+
+
+rbsort2 = []
+rbsort1 = (sorted(rb2, key=lambda e: int(e[2]), reverse = True))
+rbsort2 = (sorted(rbsort1, key=lambda e: e[0]))
+
+
+rosort2 = []
+rosort1 = (sorted(ro2, key=lambda e: int(e[2]), reverse = False))
+rosort2 = (sorted(rosort1, key=lambda e: e[0]))
+
+
+losort2 = []
+losort = (sorted(lo2, key=lambda e: int(e[2]), reverse = False))
+losort1 = (sorted(losort, key=lambda e: int(e[1]), reverse = True))
+losort2 = (sorted(losort1, key=lambda e: e[0]))
+
+
+
+lbsort2 = []
+lbsort = (sorted(lb2, key=lambda e: int(e[2]), reverse = True))
+lbsort1 = (sorted(lbsort, key=lambda e: int(e[1]), reverse = True))
+lbsort2 = (sorted(lbsort1, key=lambda e: e[0]))
+
+
+totaalrb = []
+totaalro = []
+totaallo = []
+totaallb = []
+totrb = []
+totcorb = []
+totro = []
+totcoro =[]
+totlo = []
+totcolo =[]
+totlb = []
+totcolb = []
+corb = 0
+coro = 0
+colo = 0
+colb = 0
+
+for e in rbsort2:
+    totrb.append(e[0])
+    corb = (e[1], e[2])
+    totcorb.append(corb)
+
+for e in range(len(rbsort2)):
+    if totrb[e] not in totrb[e-1]:
+        totaalrb.append(rbsort2[e])
+
+
+for e in rosort2:
+    totro.append(e[0])
+    coro = (e[1], e[2])
+    totcoro.append(coro)
+
+for e in range(len(rosort2)):
+    if totro[e] not in totro[e-1]:
+       totaalro.append(rosort2[e])
+
+
+for e in losort2:
+    totlo.append(e[0])
+    colo = (e[1], e[2])
+    totcorb.append(colo)
+
+for e in range(len(losort2)):
+    if totlo[e] not in totlo[e-1]:
+        totaallo.append(losort2[e])
+
+
+for e in lbsort2:
+    totlb.append(e[0])
+    colb = (e[1], e[2])
+    totcorb.append(colb)
+
+for e in range(len(lbsort2)):
+    if totlb[e] not in totlb[e-1]:
+        totaallb.append(lbsort2[e])
+
+
+
+
+
+tel = 1
+tot = 0
+totaaltotaal = []
+
+for e in totaalrb:
+    tot = (e, tel)
+    totaaltotaal.append(tot)
+    tel += 1
+
+for e in totaalro:
+    tot = (e, tel)
+    totaaltotaal.append(tot)
+    tel += 1
+
+for e in totaallo:
+    tot = (e, tel)
+    totaaltotaal.append(tot)
+    tel += 1
+
+for e in totaallb:
+    tot = (e, tel)
+    totaaltotaal.append(tot)
+    tel += 1
+    
+
+#part 2:
+print(totaaltotaal[199])
+#1623
+
+
