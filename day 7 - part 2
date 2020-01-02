@@ -1,0 +1,553 @@
+h = open("C:/Projecten/d7t.txt")
+nummers = h.read().split(",")
+nums = []
+numsA = []
+numsB = []
+numsC = []
+numsD = []
+numsE = []
+for e in nummers:
+    nums.append(e)
+    numsA.append(e)
+    numsB.append(e)
+    numsC.append(e)
+    numsD.append(e)
+    numsE.append(e)
+combis = []
+x = 0
+jump = False
+jumpswitch = None
+lijst = []
+totaal = 0
+output = 0
+temps = []
+switchA = True
+switchB = False
+switchC = False
+switchD = False
+switchE = False
+eerstekeer = True
+temps.append(0)
+lijst2 = []
+currentvalue = 0
+eersteA = True
+eersteB = True
+eersteC = True
+eersteD = True
+eersteE = True
+teller = 0
+currentvalueA = 0
+currentvalueB = 0
+currentvalueC = 0
+currentvalueD = 0
+currentvalueE = 0
+int0 = 0
+subint0 = 0
+
+for ampA in range(5,10):
+    for ampB in range(5,10):
+        if ampB != ampA:
+            for ampC in range(5,10):
+                if ampC != ampB and ampC != ampA:
+                    for ampD in range(5,10):
+                        if ampD != ampC and ampD != ampB and ampD != ampA:
+                            for ampE in range(5,10):
+                                if ampE != ampD and ampE != ampD and ampE != ampC and ampE != ampB and ampE != ampA:
+                                    h = open("C:/Projecten/d7t.txt")
+                                    nummers = h.read().split(",")
+                                    nums = []
+                                    numsA = []
+                                    numsB = []
+                                    numsC = []
+                                    numsD = []
+                                    numsE = []
+                                    for e in nummers:
+                                        nums.append(e)
+                                        numsA.append(e)
+                                        numsB.append(e)
+                                        numsC.append(e)
+                                        numsD.append(e)
+                                        numsE.append(e)
+                                    combis = []
+                                    x = 0
+                                    jump = False
+                                    jumpswitch = None
+                                    totaal = 0
+                                    output = 0
+                                    temps = []
+                                    switchA = True
+                                    switchB = False
+                                    switchC = False
+                                    switchD = False
+                                    switchE = False
+                                    eerstekeer = True
+                                    temps.append(0)
+                                    lijst2 = []
+                                    currentvalue = 0
+                                    eersteA = True
+                                    eersteB = True
+                                    eersteC = True
+                                    eersteD = True
+                                    eersteE = True
+                                    teller = 0
+                                    currentvalueA = 0
+                                    currentvalueB = 0
+                                    currentvalueC = 0
+                                    currentvalueD = 0
+                                    currentvalueE = 0
+                                    int0 = 0
+                                    subint0 = 0                                    
+                                    while teller < 6:
+                                       # print(teller)
+                                        if teller == 0:
+                                            e=0
+                                            nummers.clear()
+                                            for f in numsA:
+                                                nummers.append(f)
+                                            numsA.clear()
+                                            e = int(currentvalueA)
+                                            x = e%4
+                                        elif teller == 1:
+                                            e=0
+                                            nummers.clear()
+                                            for f in numsB:
+                                                nummers.append(f)
+                                            numsB.clear()
+                                            e = int(currentvalueB)
+                                            x = e%4
+                                        elif teller == 2:
+                                            e=0
+                                            nummers.clear()
+                                            for f in numsC:
+                                                nummers.append(f)
+                                            numsC.clear()
+                                            e = int(currentvalueC)
+                                            x = e%4
+                                        elif teller == 3:
+                                            e=0
+                                            nummers.clear()
+                                            for f in numsD:
+                                                nummers.append(f)
+                                            numsD.clear()
+                                            e = int(currentvalueD)
+                                            x = e%4
+                                            
+                                        elif teller == 4:
+                                            e=0
+                                            nummers.clear()
+                                            for f in numsE:
+                                                nummers.append(f)
+                                            numsE.clear()
+                                            e = int(currentvalueE)
+                                            x = e%4
+                                        
+
+                                        while e < len(nummers):
+                                            
+                                            if teller == 0:
+                                                value = ampA
+                                            elif teller == 1:
+                                                value = ampB
+                                            elif teller == 2:
+                                                value = ampC
+                                            elif teller == 3:
+                                                value = ampD
+                                            elif teller == 4:
+                                                value = ampE
+                                            if jump == True:
+                                                e = jumpswitch
+                                                jump = False
+                                            if jump == False:
+                                                if x >= 4:
+                                                    x -= 4
+                                                if e%4 == x:
+                                                    
+                                                
+                                                    int0 = int(nummers[e])
+                                                    if int0 == 1:
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        int3 = int(nummers[e+3])
+                                                        nummers[int3] = (int(nummers[int1]) + int(nummers[int2]))
+                                                        
+                                                    elif int0 == 2:
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        int3 = int(nummers[e+3])
+                                                        nummers[int3] = (int(nummers[int1]) * int(nummers[int2]))
+                                                        
+                                                    elif int0 == 3:
+                                                        if value == ampA:
+                                                            if eersteA == True:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = value
+                                                                eersteA = False
+                                                            else:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = temps[0]
+                                                        elif value == ampB:
+                                                            if eersteB == True:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = value
+                                                                eersteB = False
+                                                            else:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = temps[0]
+                                                        elif value == ampC:
+                                                            if eersteC == True:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = value
+                                                                eersteC = False
+                                                            else:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = temps[0]
+                                                        elif value == ampD:
+                                                            if eersteD == True:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = value
+                                                                eersteD = False
+                                                            else:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = temps[0]
+                                                        elif value == ampE:
+                                                            if eersteE == True:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = value
+                                                                eersteE = False
+                                                            else:
+                                                                int1 = int(nummers[e+1])
+                                                                x += 2
+                                                                nummers[int1] = temps[0]
+                                                            
+
+                                                        
+                                                    elif int0 == 4:
+                                                        if value == ampA:
+                                                            numsA.clear()
+                                                            
+                                                            for h in nummers:
+                                                                numsA.append(h)
+                                                        #    print(numsA, "a")
+                                                            currentvalueA = e +2
+                                                            temps.clear()
+                                                            int1 = int(nummers[e+1])
+                                                            temps.append(numsA[int1])
+
+                                                            x += 2
+                                                            break
+
+                                                            
+                                                        elif value == ampB:
+                                                            numsB.clear()
+                                                            for h in nummers:
+                                                                numsB.append(h)
+                                             #               print(numsB, "B")
+                                                            currentvalueB = e +2
+                                                            temps.clear()
+                                                            int1 = int(nummers[e+1])
+                                                            temps.append(nummers[int1])
+                                                            x+=2
+                                                            break
+
+                                                            
+                                                        elif value == ampC:
+                                                            numsC.clear()
+                                                            for h in nummers:
+                                                                numsC.append(h)
+                                                 #           print(numsC,"c")
+                                                            currentvalueC = e +2
+                                                            temps.clear()
+                                                            int1 = int(nummers[e+1])
+                                                            temps.append(nummers[int1])
+                                                            x +=2
+                                                            break
+                                                            
+                                                        elif value == ampD:
+                                                            numsD.clear()
+                                                            for h in nummers:
+                                                                numsD.append(h)
+                                                   #         print(numsD, "d")
+                                                            currentvalueD = e +2
+                                                            temps.clear()
+                                                            int1 = int(nummers[e+1])
+                                                            temps.append(nummers[int1])
+                                                            x +=2
+                                                            break
+
+                                                            
+                                                        elif value == ampE:
+                                                            numsE.clear()
+                                                            for h in nummers:
+                                                                numsE.append(h)
+                                                    #        print(numsE, "E")
+                                                            currentvalueE = e +2
+                                                            temps.clear()
+                                                            int1 = int(nummers[e+1])
+                                                            temps.append(nummers[int1])
+                                                            
+                                                            x +=2
+                                                            break
+                                                        
+
+                                                            
+                                                            
+
+                                                            
+                                                        
+                                                           
+                                                    elif int0 == 5:
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        if int(nummers[int1]) != 0:
+                                                            jumpswitch = int2
+                                                            x = jumpswitch%4
+                                                            jump = True
+                                                        else:
+                                                            x+=3
+                                                            
+                                                    elif int0 == 6:
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        if int(nummers[int1]) == 0:
+                                                            jumpswitch = int2
+                                                            x = jumpswitch%4
+                                                            jump = True
+                                                        else:
+                                                            x += 3
+                                                            
+                                                    elif int0 == 7:
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        int3 = int(nummers[e+3])
+                                                        if nummers[int1] < nummers[int2]:
+                                                            nummers[int3] = 1
+                                                        else:
+                                                            nummers[int3] = 0
+                                                            
+                                                    elif int0 == 8:
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        int3 = int(nummers[e+3])
+                                                        if nummers[int1] == nummers[int2]:
+                                                            nummers[int3] = 1
+                                                        else:
+                                                            nummers[int3] = 0
+                                         
+                                                    elif int0 == 99:
+                                                        if value == ampE:
+                                                            teller = 10
+                                                            
+                                                            lijst.append(temps[0])
+                                                            
+                                                            temps.clear()
+
+                                                        break
+                                                    
+                                                    elif int0 > 99:
+                                                        subint = str(int0)
+                                                        if len(subint) < 4:
+                                                            subint = "0" + str(int0)
+                                                        subint0 = int(subint[-2:])
+                                                        subint1 = int(subint[-3:-2])
+                                                        subint2 = int(subint[-4:-3])
+                                                        int1 = int(nummers[e+1])
+                                                        int2 = int(nummers[e+2])
+                                                        int3 = int(nummers[e+3])
+                                                        if subint0 == 1:
+                                                            if subint1 == 0:
+                                                                if subint2 == 0:
+                                                                    nummers[int3] = (int(nummers[int1]) + int(nummers[int2]))
+                                                                elif subint2 == 1:
+                                                                    nummers[int3] = (int(nummers[int1]) + int2)
+                                                            elif subint1 == 1:
+                                                                if subint2 == 0:
+                                                                    nummers[int3] = int1 + int(nummers[int2])
+                                                                elif subint2 == 1:
+                                                                    nummers[int3] = int1 + int2
+                                                                    
+                                                        elif subint0 == 2:
+                                                            if subint1 == 0:
+                                                                if subint2 == 0:
+                                                                    nummers[int3] = (int(nummers[int1]) * int(nummers[int2]))
+                                                                elif subint2 == 1:
+                                                                    nummers[int3] = (int(nummers[int1]) * int2)
+                                                            elif subint1 == 1:
+                                                                if subint2 == 0:
+                                                                    nummers[int3] = int1 * int(nummers[int2])
+                                                                elif subint2 == 1:
+                                                                    nummers[int3] = int1 * int2
+
+                                                        elif subint0 == 4:
+                                                            if value == ampA:
+                                                                numsA.clear()
+                                                                for h in nummers:
+                                                                    numsA.append(h)
+                                                                    currentvalueA = e
+                                                                    break
+                                                            elif value == ampB:
+                                                                numsB.clear()
+                                                                for h in nummers:
+                                                                    numsA.append(h)
+                                                                    currentvalueB = e
+                                                                    break
+                                                            elif value == ampC:
+                                                                numsC.clear()
+                                                                for h in nummers:
+                                                                    numsC.append(h)
+                                                                    currentvalueC = e
+                                                                    break
+                                                            elif value == ampD:
+                                                                numsD.clear()
+                                                                for h in nummers:
+                                                                    numsD.append(h)
+                                                                    currentvalueD = e
+                                                                    break
+                                                            elif value == ampE:
+                                                                numsE.clear()
+                                                                for h in nummers:
+                                                                    numsE.append(h)
+                                                                    currentvalueE = e
+                                                                    break
+                                                                
+                                                            if subint1 == 0:
+                                                                temps.clear()
+                                                                int1 = int(nummers[e+1])
+                                                                temps.append(nummers[int1])
+                                                                x += 2
+                                                            elif subint1 == 1:
+                                                                temps.clear()
+                                                                int1 = int(nummers[e+1])
+                                                                temps.append(int1)
+                                                                x += 2
+                                                            
+                                                                         
+                                                        elif subint0 == 5:
+                                                            if subint1 == 0:
+                                                                if int(nummers[int1]) != 0:
+                                                                    if subint2 == 0:
+                                                                        jumpswitch = int(nummers[int2])
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                    elif subint2 == 1:
+                                                                        jumpswitch = int2
+                                                                        x = jumpswitch%4
+                                                                        jump = True           
+                                                                else:
+                                                                    x += 3
+                                                            elif subint1 == 1:
+                                                                if int1 != 0:
+                                                                    if subint2 == 0:
+                                                                        jumpswitch = int(nummers[int2])
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                    elif subint2 == 1:
+                                                                        jumpswitch = int2
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                else:
+                                                                    x += 3
+                                                            
+                                                            
+                                                                         
+                                                        elif subint0 == 6:
+                                                            if subint1 == 0:
+                                                                if int(nummers[int1]) == 0:
+                                                                    if subint2 == 0:
+                                                                        jumpswitch = int(nummers[int2])
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                    elif subint2 == 1:
+                                                                        jumpswitch = int2
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                else:
+                                                                    x += 3
+                                                            elif subint1 == 1:
+                                                                if int1 == 0:
+                                                                    if subint2 == 0:
+                                                                        jumpswitch = int(nummers[int2])
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                    elif subint2 == 1:
+                                                                        jumpswitch = int2
+                                                                        x = jumpswitch%4
+                                                                        jump = True
+                                                                else:
+                                                                    x += 3
+                                                                
+                                                        elif subint0 == 7:
+                                                            if subint1 == 0:
+                                                                if subint2 == 0:
+                                                                    if int(nummers[int1]) < int(nummers[int2]):
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                                elif subint2 == 1:
+                                                                    if int(nummers[int1]) < int2:
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                            elif subint1 == 1:
+                                                                if subint2 == 0:
+                                                                    if int1 < int(nummers[int2]):
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                                elif subint2 == 1:
+                                                                    if int1 < int2:
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                                
+                                                        elif subint0 == 8:                         
+                                                            if subint1 == 0:
+                                                                if subint2 == 0:
+                                                                    if int(nummers[int1]) == int(nummers[int2]):
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                                elif subint2 == 1:
+                                                                    if int(nummers[int1]) == int2:
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                            elif subint1 == 1:
+                                                                if subint2 == 0:
+                                                                    if int1 == int(nummers[int2]):
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+                                                                elif subint2 == 1:
+                                                                    if int1 == int2:
+                                                                        nummers[int3] = 1
+                                                                    else:
+                                                                        nummers[int3] = 0
+
+                                                        elif subint0 == 99:
+                                                            
+                                                            lijst.append(temps[0])
+                                                            break
+
+                                            e += 1
+                                        x = 0
+                                        teller += 1
+                                        if teller == 5:
+                                            teller = 0
+                                    
+                                        
+                                    
+print(max(lijst))
+#2645740
+                
+
+
+
