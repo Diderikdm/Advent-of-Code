@@ -1,0 +1,28 @@
+i = open("C:/Projecten/d1.txt")
+acties = i.read().split()
+tot = 0
+totaal = 0
+
+
+#part 1:
+for a in acties:
+    tot += int(int(a)/3)-2
+
+
+    
+print(tot)
+
+
+
+#part 2:
+for x in acties:
+    y=0
+    while int(x) > 0:
+        x = int(int(x) / 3 - 2)
+        if  x <= 0:
+            x = 0
+        y += x
+        
+    totaal += y
+
+print(totaal)
