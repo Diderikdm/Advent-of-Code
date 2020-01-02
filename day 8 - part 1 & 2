@@ -1,0 +1,56 @@
+i = open("C:/Projecten/d8.txt", "r")
+data = i.read()
+pictures = []
+lijst = []
+eind = "" 
+m = 0
+nullen = 200
+enen = 0
+tweeen = 0
+waarde = ""
+
+
+
+for e in range(300):
+    pictures.append(data[m : (m+150)])
+    m += 150
+
+for e in pictures:
+    if e.count('0') < nullen and e.count('0') > 0:
+        nullen = e.count('0')
+        enen = e.count('1')
+        tweeen = e. count('2')
+        
+#part 1:
+print(enen * tweeen)
+#2975
+
+
+eind = pictures[0]
+
+for e in range(150):
+    lijst.append(eind[e])
+
+
+for e in pictures:
+    for f in range(150):
+        if lijst[f] == "2":
+            lijst[f] = e[f]
+
+for e in lijst:
+    waarde += e
+
+waarde = waarde.replace("0", ".")
+waarde = waarde.replace("1", "#")
+
+#part 2:
+print(waarde)
+#EHRUE
+####.#..#.###..#..#.####.
+#....#..#.#..#.#..#.#....
+###..####.#..#.#..#.###..
+#....#..#.###..#..#.#....
+#....#..#.#.#..#..#.#....
+####.#..#.#..#..##..####.
+
+        
