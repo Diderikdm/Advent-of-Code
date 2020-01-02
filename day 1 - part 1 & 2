@@ -11,6 +11,7 @@ for a in acties:
 
     
 print(tot)
+#3389778
 
 
 
@@ -26,3 +27,4 @@ for x in acties:
     totaal += y
 
 print(totaal)
+#5081802
