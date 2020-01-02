@@ -1,0 +1,70 @@
+i = open("C:/Projecten/d22.txt")
+
+inp = i.read().splitlines()
+shuffles = []
+for e in inp:
+    if e[0:9] == "deal with":
+        shuffles.append(str("i " + e[-2:]))
+    elif e[0:9] == "deal into":
+        shuffles.append(str("n"))
+    elif e[0:3] == "cut":
+        shuffles.append(str("c" + e[3:]))
+
+
+
+deck = []
+decktemp = []
+for e in range(0,10007):
+    deck.append(e)
+
+for e in shuffles:
+    if e[0] == "n":
+        for i in reversed(deck):
+            decktemp.append(i)
+        deck.clear()
+        for i in decktemp:
+            deck.append(i)
+        decktemp.clear()
+
+        
+    elif e[0] == "c":
+        if int(e[1:]) > 0:
+            for f in range(int(e[1:]), len(deck)):
+                decktemp.append(deck[f])
+            for f in range(0, int(e[1:])):
+                decktemp.append(deck[f])
+            deck.clear()
+            for i in decktemp:
+                deck.append(i)
+            decktemp.clear()
+        elif int(e[1:]) < 0:
+            temp = len(deck)+int(e[1:])
+            for f in range(temp, len(deck)):
+                decktemp.append(deck[f])
+            for f in range(0, temp):
+                decktemp.append(deck[f])
+            deck.clear()
+            for i in decktemp:
+                deck.append(i)
+            decktemp.clear()
+    
+    elif e[0] == "i":
+        x = 0
+        for i in deck:
+            decktemp.append(i)
+        for g in range(len(deck)):
+            decktemp[x] = deck[g]
+            x += int(e[1:])
+            if x > len(deck):
+                x -= len(deck)
+        deck.clear()
+        for i in decktemp:
+            deck.append(i)
+        decktemp.clear()
+
+for e in deck:
+    if e == 2019:
+        print(deck.index(e))
+#4485
+
+
