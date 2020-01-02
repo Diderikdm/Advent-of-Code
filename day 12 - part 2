@@ -1,0 +1,366 @@
+Iposx = -5
+Iposy = 6
+Iposz = -11
+Ivelx = 0
+Ively = 0
+Ivelz = 0
+Ipostellerx = 0
+Ipostellery = 0
+Ipostellerz = 0
+
+Eposx = -8
+Eposy = -4
+Eposz = -2
+Evelx = 0
+Evely = 0
+Evelz = 0
+Epostellerx = 0
+Epostellery = 0
+Epostellerz = 0
+
+Gposx = 1
+Gposy = 16
+Gposz = 4
+Gvelx = 0
+Gvely = 0
+Gvelz = 0
+Gpostellerx = 0
+Gpostellery = 0
+Gpostellerz = 0
+
+Cposx = 11
+Cposy = 11
+Cposz = -4
+Cvelx = 0
+Cvely = 0
+Cvelz = 0
+Cpostellerx = 0
+Cpostellery = 0
+Cpostellerz = 0
+
+Ipos = (Iposx, Iposy, Iposz)
+Ivel = (Ivelx, Ively, Ivelz)
+
+Epos = (Eposx, Eposy, Eposz)
+Evel = (Evelx, Evely, Evelz)
+
+Gpos = (Gposx, Gposy, Gposz)
+Gvel = (Gvelx, Gvely, Gvelz)
+
+Cpos = (Cposx, Cposy, Cposz)
+Cvel = (Cvelx, Cvely, Cvelz)
+
+I = (Ipos, Ivel)
+E = (Epos, Evel)
+G = (Gpos, Gvel)
+C = (Cpos, Cvel)
+
+manen = (I, E, G, C)
+
+stappen = []
+
+stappen.append(manen)
+teller = 0
+
+for e in range(1000000):
+    teller += 1
+    if Iposx > Eposx:
+        Ipostellerx -= 1
+        Epostellerx += 1
+    elif Iposx < Eposx:
+        Ipostellerx += 1
+        Epostellerx -= 1
+    if Iposx > Gposx:
+        Ipostellerx -= 1
+        Gpostellerx += 1
+    elif Iposx < Gposx:
+        Ipostellerx += 1
+        Gpostellerx -= 1
+    if Iposx > Cposx:
+        Ipostellerx -= 1
+        Cpostellerx += 1
+    elif Iposx < Cposx:
+        Ipostellerx += 1
+        Cpostellerx -= 1
+    if Eposx > Gposx:
+        Epostellerx -= 1
+        Gpostellerx += 1
+    elif Eposx < Gposx:
+        Epostellerx += 1
+        Gpostellerx -= 1
+    if Eposx > Cposx:
+        Epostellerx -= 1
+        Cpostellerx += 1
+    elif Eposx < Cposx:
+        Epostellerx += 1
+        Cpostellerx -= 1
+    if Gposx > Cposx:
+        Gpostellerx -= 1
+        Cpostellerx += 1
+    elif Gposx < Cposx:
+        Gpostellerx += 1
+        Cpostellerx -= 1
+
+
+    if Iposy > Eposy:
+        Ipostellery -= 1
+        Epostellery += 1
+    elif Iposy < Eposy:
+        Ipostellery += 1
+        Epostellery -= 1
+    if Iposy > Gposy:
+        Ipostellery -= 1
+        Gpostellery += 1
+    elif Iposy < Gposy:
+        Ipostellery += 1
+        Gpostellery -= 1
+    if Iposy > Cposy:
+        Ipostellery -= 1
+        Cpostellery += 1
+    elif Iposy < Cposy:
+        Ipostellery += 1
+        Cpostellery -= 1
+    if Eposy > Gposy:
+        Epostellery -= 1
+        Gpostellery += 1
+    elif Eposy < Gposy:
+        Epostellery += 1
+        Gpostellery -= 1
+    if Eposy > Cposy:
+        Epostellery -= 1
+        Cpostellery += 1
+    elif Eposy < Cposy:
+        Epostellery += 1
+        Cpostellery -= 1
+    if Gposy > Cposy:
+        Gpostellery -= 1
+        Cpostellery += 1
+    elif Gposy < Cposy:
+        Gpostellery += 1
+        Cpostellery -= 1
+
+
+    if Iposz > Eposz:
+        Ipostellerz -= 1
+        Epostellerz += 1
+    elif Iposz < Eposz:
+        Ipostellerz += 1
+        Epostellerz -= 1
+    if Iposz > Gposz:
+        Ipostellerz -= 1
+        Gpostellerz += 1
+    elif Iposz < Gposz:
+        Ipostellerz += 1
+        Gpostellerz -= 1
+    if Iposz > Cposz:
+        Ipostellerz -= 1
+        Cpostellerz += 1
+    elif Iposz < Cposz:
+        Ipostellerz += 1
+        Cpostellerz -= 1
+    if Eposz > Gposz:
+        Epostellerz -= 1
+        Gpostellerz += 1
+    elif Eposz < Gposz:
+        Epostellerz += 1
+        Gpostellerz -= 1
+    if Eposz > Cposz:
+        Epostellerz -= 1
+        Cpostellerz += 1
+    elif Eposz < Cposz:
+        Epostellerz += 1
+        Cpostellerz -= 1
+    if Gposz > Cposz:
+        Gpostellerz -= 1
+        Cpostellerz += 1
+    elif Gposz < Cposz:
+        Gpostellerz += 1
+        Cpostellerz -= 1
+        
+    Iposx = Iposx + Ipostellerx + Ivelx
+    Iposy = Iposy + Ipostellery + Ively
+    Iposz = Iposz + Ipostellerz + Ivelz
+
+    Eposx = Eposx + Epostellerx + Evelx
+    Eposy = Eposy + Epostellery + Evely
+    Eposz = Eposz + Epostellerz + Evelz
+
+    Gposx = Gposx + Gpostellerx + Gvelx
+    Gposy = Gposy + Gpostellery + Gvely
+    Gposz = Gposz + Gpostellerz + Gvelz
+
+    Cposx = Cposx + Cpostellerx + Cvelx
+    Cposy = Cposy + Cpostellery + Cvely
+    Cposz = Cposz + Cpostellerz + Cvelz
+
+    Ivelx = Ivelx + Ipostellerx
+    Ively = Ively + Ipostellery
+    Ivelz = Ivelz + Ipostellerz
+
+    Evelx = Evelx + Epostellerx
+    Evely = Evely + Epostellery
+    Evelz = Evelz + Epostellerz
+
+    Gvelx = Gvelx + Gpostellerx
+    Gvely = Gvely + Gpostellery
+    Gvelz = Gvelz + Gpostellerz
+
+    Cvelx = Cvelx + Cpostellerx
+    Cvely = Cvely + Cpostellery
+    Cvelz = Cvelz + Cpostellerz
+
+    Ipos = (Iposx, Iposy, Iposz)
+    Ivel = (Ivelx, Ively, Ivelz)
+
+    Epos = (Eposx, Eposy, Eposz)
+    Evel = (Evelx, Evely, Evelz)
+
+    Gpos = (Gposx, Gposy, Gposz)
+    Gvel = (Gvelx, Gvely, Gvelz)
+
+    Cpos = (Cposx, Cposy, Cposz)
+    Cvel = (Cvelx, Cvely, Cvelz)
+
+    I = (Ipos, Ivel)
+    E = (Epos, Evel)
+    G = (Gpos, Gvel)
+    C = (Cpos, Cvel)
+
+    manen = (I, E, G, C)
+    
+    stappen.append(manen)
+
+    Ipostellerx = 0
+    Ipostellery = 0
+    Ipostellerz = 0
+
+    Epostellerx = 0
+    Epostellery = 0
+    Epostellerz = 0
+
+    Gpostellerx = 0
+    Gpostellery = 0
+    Gpostellerz = 0
+
+    Cpostellerx = 0
+    Cpostellery = 0
+    Cpostellerz = 0
+
+
+
+coords = []
+covels = []
+for e in stappen:
+    for f in e:
+       coords.append(f[0])
+       covels.append(f[1])
+
+
+
+
+
+x = 0
+coords3 = []
+covels3 = []
+for e in range(len(stappen)):
+    coords2 = (coords[x], coords[x + 1], coords[x + 2], coords[x + 3])
+    covels2 = (covels[x], covels[x + 1], covels[x + 2], covels[x + 3])
+    coords3.append([coords2])
+    covels3.append([covels2])
+    x += 4
+
+
+x = 0
+coposx = []
+coposy = []
+coposz = []
+covelx = []
+covely = []
+covelz = []
+
+for e in coords3:
+    for f in e:
+        for h in f:
+            coposx.append(h[0])
+            coposy.append(h[1])
+            coposz.append(h[2])
+
+
+        
+for e in covels3:
+    for f in e:
+        for h in f:
+            covelx.append(h[0])
+            covely.append(h[1])
+            covelz.append(h[2])        
+        
+coposx3 = []
+coposy3 = []
+coposz3 = []
+covelx3 = []
+covely3 = []
+covelz3 = []
+
+for e in range(len(coords3)):
+    coposx2 = (coposx[x], coposx[x + 1], coposx[x + 2], coposx[x + 3])
+    coposy2 = (coposy[x], coposy[x + 1], coposy[x + 2], coposy[x + 3])
+    coposz2 = (coposz[x], coposz[x + 1], coposz[x + 2], coposz[x + 3])
+    covelx2 = (covelx[x], covelx[x + 1], covelx[x + 2], covelx[x + 3])
+    covely2 = (covely[x], covely[x + 1], covely[x + 2], covely[x + 3])
+    covelz2 = (covelz[x], covelz[x + 1], covelz[x + 2], covelz[x + 3])
+    coposx3.append(coposx2)
+    coposy3.append(coposy2)
+    coposz3.append(coposz2)
+    covelx3.append(covelx2)
+    covely3.append(covely2)
+    covelz3.append(covelz2)
+    x += 4
+
+from collections import defaultdict
+D = defaultdict(list)
+for i,item in enumerate(coposy3):
+    
+    D[item].append(i)
+D = {k:v for k,v in D.items() if len(v)>1}
+
+print(D)
+
+xpos = 286332
+ypos = 161428
+zpos = 108344
+xvel = 143166
+yvel = 80714
+zvel = 54172
+
+y = 7755588552
+z = 11555500524
+
+xpos2 = 0
+zpos2 = 0
+xvel2 = 0
+yvel2 = 0
+zvel2 = 0
+
+aa = 23266765656
+aaa = 0
+a  = []
+b = []
+xposl = []
+yposl = []
+zposl = []
+
+xvell = []
+yvell = []
+zvell = []
+
+for e in range(1000000):
+    a.append(aaa)
+    aaa += y
+
+
+for e in a:
+    if e%z == 0:
+        print(e)
+        
+#312992287193064
+
