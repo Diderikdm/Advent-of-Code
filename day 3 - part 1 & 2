@@ -1,0 +1,121 @@
+i = open("C:/Projecten/Lijn1.txt")
+j = open("C:/Projecten/Lijn2.txt")
+
+lijn1 = i.read().split(",")
+lijn2 = j.read().split(",")
+
+letters1 = []
+letters2 = []
+nummers1 = []
+nummers2 = []
+coordinaten1 = []
+coordinaten2 = []
+instersection1 = []
+index1 = []
+index2 = []
+x = 0
+y = 0
+steps1 = 0
+steps2 = 0
+stappen1 = []
+stappen2 = []
+telop = []
+
+for el in lijn1:
+    letters1.append(el[0])
+    nummers1.append(int(''.join(filter(str.isdigit, (el)))))
+for le in lijn2:
+    letters2.append(le[0])
+    nummers2.append(int(''.join(filter(str.isdigit, (le)))))
+
+
+
+    
+
+for a in range (0, len(letters1)):
+    if letters1[a] == "R":
+        for b in range(nummers1[a]):
+            stappen1.append(steps1)
+            coordinaten1.append((x, y))
+            x += 1
+            steps1 += 1
+            
+    if letters1[a] == "L":
+        for b in range(nummers1[a]):
+            stappen1.append(steps1)
+            coordinaten1.append((x, y))
+            x -= 1
+            steps1 += 1
+            
+    if letters1[a] == "U":
+        for b in range(nummers1[a]):
+            stappen1.append(steps1)
+            coordinaten1.append((x, y))
+            y += 1
+            steps1 += 1
+            
+    if letters1[a] == "D":
+        for b in range(nummers1[a]):
+            stappen1.append(steps1)
+            coordinaten1.append((x, y))
+            y -= 1
+            steps1 += 1
+            
+    
+x = 0
+y = 0
+for a in range (len(letters2)):
+    if letters2[a] == "R":
+        for b in range(nummers2[a]):
+            stappen2.append(steps2)
+            coordinaten2.append((x, y))
+            x += 1
+            steps2 += 1 
+    if letters2[a] == "L":
+        for b in range(nummers2[a]):
+            stappen2.append(steps2)
+            coordinaten2.append((x, y))
+            x -= 1
+            steps2 += 1
+    if letters2[a] == "U":
+        for b in range(nummers2[a]):
+            stappen2.append(steps2)
+            coordinaten2.append((x, y))
+            y += 1
+            steps2 += 1
+    if letters2[a] == "D":
+        for b in range(nummers2[a]):
+            stappen2.append(steps2)
+            coordinaten2.append((x, y))
+            y -= 1
+            steps2 += 1
+
+intersection = list(set(coordinaten2).intersection(set(coordinaten1)))
+lowest = 1000000000000
+for el in intersection:
+    xcor, ycor = el[0], el[1]
+    resultaat = abs(xcor) + abs(ycor)
+    if resultaat < lowest and resultaat != 0:
+        lowest = resultaat
+
+#part 1:
+print(lowest)
+#303
+
+
+for e in intersection:
+    index1.append(coordinaten1.index(e))
+    index2.append(coordinaten2.index(e))
+
+
+for a in range(len(index1)):
+    if index1[a] != 0 or index2[a] != 0:
+        telop.append(int(index1[a]) + int(index2[a]))
+        
+#part 2:
+print(sorted(telop)[0])
+#11222
+    
+
+
+
