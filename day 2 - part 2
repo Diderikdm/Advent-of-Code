@@ -1,0 +1,38 @@
+h = open("C:/Projecten/d2.txt")
+nummers = h.read().split(",")
+nummers2 = []
+for e in nummers:
+    nummers2.append(e)
+nums = []
+combis = []
+x = 0
+
+   
+
+for a in range(0,100):
+    for b in range(0,100):
+        nummers.clear()
+        for i in nummers2:
+            nummers.append(i)
+        nummers[1] = a
+        nummers[2] = b
+        for e in range(len(nummers)):
+            if e%4 == x:
+                int0 = int(nummers[e])
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                int3 = int(nummers[e+3])
+                if int0 == 1:
+                    nummers[int3] = (int(nummers[int1]) + int(nummers[int2]))
+                elif int0 == 2:
+                    nummers[int3] = (int(nummers[int1]) * int(nummers[int2]))
+                elif int0 == 99:
+                    if nummers[0] == 19690720:
+                        c = a
+                        d = b
+                    break
+            
+
+
+print(100*c + d)
+#5335
