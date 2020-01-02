@@ -1,0 +1,48 @@
+h = open("C:/Projecten/d16.txt")
+input = h.read()
+pattern = []
+multi = []
+nummers = list(input)
+nummers2 = []
+
+
+teller = 1
+nul = 0
+een = 1
+mineen = -1
+f = 0
+totaal = 0   
+
+for a in range(100):
+    teller = 1
+    for b in range(len(nummers)):
+        for e in range(teller):
+            pattern.append("0")
+        for e in range(teller):
+            pattern.append("1")
+        for e in range(teller):
+            pattern.append("0")
+        for e in range(teller):
+            pattern.append("-1")
+        f = 0
+        while f < (len(nummers) + 1):
+            if f == 0:
+                f += 1
+                continue
+            else:
+                num = f%len(pattern)
+                multi.append(pattern[num])
+                f += 1
+        for g in range(len(nummers)):
+            totaal += (int(nummers[g]) * int(multi[g]))
+        nummers2.append(str(totaal)[-1:])
+        teller += 1
+        totaal = 0
+        pattern.clear()
+        multi.clear()
+    nummers.clear()
+    for e in nummers2:
+        nummers.append(e)
+    nummers2.clear()
+print(nummers[:8])
+#89576828
