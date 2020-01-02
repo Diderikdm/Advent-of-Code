@@ -1,0 +1,682 @@
+h = open("C:/Projecten/d13.txt")
+nummers = h.read().split(",")
+nums = []
+combis = []
+x = 0
+lijst = []
+jump = False
+jumpswitch = None
+relativebase = 0
+int3 = 0
+
+for e in range(1100):
+    nummers.append(0)
+print(nummers)
+e = 0
+eerstekeer = True
+tweedekeer = False
+derdekeer = False
+xcor = 0
+ycor = 0
+titleid = 0
+gamecoord = 0
+gamecoords = []
+
+
+while e < len(nummers):
+    val = False
+    if jump == True:
+        e = jumpswitch
+        jump = False
+    if jump == False:
+        if x >= 4:
+            x -= 4
+        if e%4 == x:
+            
+            
+            int0 = int(nummers[e])
+            if int0 == 1:
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                int3 = int(nummers[e+3])
+                nummers[int3] = (int(nummers[int1]) + int(nummers[int2]))
+                
+            elif int0 == 2:
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                int3 = int(nummers[e+3])
+                nummers[int3] = (int(nummers[int1]) * int(nummers[int2]))
+                
+            elif int0 == 3:
+                int1 = int(nummers[e+1])
+                x += 2
+                nummers[int1] = int(input())
+                
+            elif int0 == 4:
+                int1 = int(nummers[e+1])
+                if eerstekeer == True:
+                    xcor = int(nummers[int1])
+                    eerstekeer = False
+                    tweedekeer = True
+                elif tweedekeer == True:
+                    ycor = int(nummers[int1])
+                    tweedekeer = False
+                    derdekeer = True
+                elif derdekeer == True:
+                    titleid = int(nummers[int1])
+                    derdekeer = False
+                    eerstekeer = True
+                    gamecoord = (xcor, ycor, titleid)
+                    gamecoords.append(gamecoord)
+                    xcor = 0
+                    ycor = 0
+                    titleid = 0
+                    gamecoord = 0
+                    
+                    
+
+                x += 2
+   
+            elif int0 == 5:
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                if int(nummers[int1]) != 0:
+                    jumpswitch = int2
+                    x = int2%4
+                    jump = True
+                    val = True
+                else:
+                    x+=3
+                    
+            elif int0 == 6:
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                if int(nummers[int1]) == 0:
+                    jumpswitch = int2
+                    x = int2%4
+                    jump = True
+                    val = True
+                else:
+                    x += 3
+                    
+            elif int0 == 7:
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                int3 = int(nummers[e+3])
+                if nummers[int1] < nummers[int2]:
+                    nummers[int3] = 1
+                else:
+                    nummers[int3] = 0
+                    
+            elif int0 == 8:
+                int1 = int(nummers[e+1])
+                int2 = int(nummers[e+2])
+                int3 = int(nummers[e+3])
+                if nummers[int1] == nummers[int2]:
+                    nummers[int3] = 1
+                else:
+                    nummers[int3] = 0
+                    
+            elif int0 == 9:
+                int1 = int(nummers[e+1])
+                relativebase += int(nummers[int1])
+                x += 2
+                
+            elif int0 == 99:
+                break
+            
+            elif int0 > 99:
+                subint = str(int0)
+        
+                if len(subint) < 4:
+                    subint = "0" + str(int0)
+                subint3 = 0
+                subint0 = int(subint[-2:])
+                subint1 = int(subint[-3:-2])
+                subint2 = int(subint[-4:-3])
+                int1 = int(nummers[e+1])
+                if len(subint) == 5:
+                    subint3 = int(subint[-5:-4])
+                if subint0 == 1:
+                    int2 = int(nummers[e+2])
+                    int3 = int(nummers[e+3])
+                    if subint3 == 2:
+                        int3 += relativebase
+                    if subint1 == 0:
+                        if subint2 == 0:
+                            nummers[int3] = (int(nummers[int1]) + int(nummers[int2]))
+                        elif subint2 == 1:
+                            nummers[int3] = (int(nummers[int1]) + int2)
+                        elif subint2 == 2:
+                            nummers[int3] = (int(nummers[int1]) + int(nummers[int2 + relativebase]))
+                    elif subint1 == 1:
+                        if subint2 == 0:
+                            nummers[int3] = (int1 + int(nummers[int2]))
+                        elif subint2 == 1:
+                            nummers[int3] = (int1 + int2)
+                        elif subint2 == 2:
+                            nummers[int3] = (int1 + int(nummers[int2 + relativebase]))
+                    elif subint1 == 2:
+                        if subint2 == 0:
+                            nummers[int3] = (int(nummers[int1 + relativebase]) + int(nummers[int2]))
+                        elif subint2 == 1:
+                            nummers[int3] = (int(nummers[int1 + relativebase]) + int2)
+                        elif subint2 == 2:
+                            nummers[int3] = (int(nummers[int1 + relativebase]) + int(nummers[int2 + relativebase]))
+                                                                  
+                            
+                elif subint0 == 2:
+                    int2 = int(nummers[e+2])
+                    int3 = int(nummers[e+3])
+                    if subint3 == 2:
+                        int3 += relativebase
+                    if subint1 == 0:
+                        if subint2 == 0:
+                            nummers[int3] = (int(nummers[int1]) * int(nummers[int2]))
+                        elif subint2 == 1:
+                            nummers[int3] = (int(nummers[int1]) * int2)
+                        elif subint2 == 2:
+                            nummers[int3] = (int(nummers[int1]) * (int(nummers[int2 + relativebase])))
+                    elif subint1 == 1:
+                        if subint2 == 0:
+                            nummers[int3] = int1 * int(nummers[int2])
+                        elif subint2 == 1:
+                            nummers[int3] = int1 * int2
+                        elif subint2 == 2:
+                            nummers[int3] = int1 * int(nummers[int2 + relativebase])
+                    elif subint1 == 2:
+                        if subint2 == 0:
+                            nummers[int3] = (int(nummers[int1 + relativebase]) * int(nummers[int2]))
+                        elif subint2 == 1:
+                            nummers[int3] = (int(nummers[int1 + relativebase]) * int2)
+                        elif subint2 == 2:
+                            nummers[int3] = (int(nummers[int1 + relativebase]) * int(nummers[int2 + relativebase]))
+
+                elif subint0 == 3:
+                    if subint1 == 0:
+                        
+                        x += 2
+                        nummers[int1] = int(input())
+                    elif subint1 == 1:
+                        
+                        x += 2
+                        nummers[e+1] = int(input())
+                    elif subint1 == 2:
+                        x += 2
+                        nummers[int1 + relativebase] = int(input())
+
+
+                elif subint0 == 4:
+                    
+                    if subint1 == 0:
+                        if eerstekeer == True:
+                            xcor = int(nummers[int1])
+                            eerstekeer = False
+                            tweedekeer = True
+                        elif tweedekeer == True:
+                            ycor = int(nummers[int1])
+                            tweedekeer = False
+                            derdekeer = True
+                        elif derdekeer == True:
+                            titleid = int(nummers[int1])
+                            derdekeer = False
+                            eerstekeer = True
+                            gamecoord = (xcor, ycor, titleid)
+                            gamecoords.append(gamecoord)
+                            xcor = 0
+                            ycor = 0
+                            titleid = 0
+                            gamecoord = 0
+                        x += 2
+                    elif subint1 == 1:
+                        if eerstekeer == True:
+                            xcor = int(int1)
+                            eerstekeer = False
+                            tweedekeer = True
+                        elif tweedekeer == True:
+                            ycor = int(int1)
+                            tweedekeer = False
+                            derdekeer = True
+                        elif derdekeer == True:
+                            titleid = int(int1)
+                            derdekeer = False
+                            eerstekeer = True
+                            gamecoord = (xcor, ycor, titleid)
+                            gamecoords.append(gamecoord)
+                            xcor = 0
+                            ycor = 0
+                            titleid = 0
+                            gamecoord = 0
+                        x += 2
+                    elif subint1 == 2:
+                        if eerstekeer == True:
+                            xcor = int(nummers[int1 + relativebase])
+                            eerstekeer = False
+                            tweedekeer = True
+                        elif tweedekeer == True:
+                            ycor = int(nummers[int1 + relativebase])
+                            tweedekeer = False
+                            derdekeer = True
+                        elif derdekeer == True:
+                            titleid = int(nummers[int1 + relativebase])
+                            derdekeer = False
+                            eerstekeer = True
+                            gamecoord = (xcor, ycor, titleid)
+                            gamecoords.append(gamecoord)
+                            xcor = 0
+                            ycor = 0
+                            titleid = 0
+                            gamecoord = 0
+                        x += 2
+                                 
+                elif subint0 == 5:
+                    int2 = int(nummers[e+2])
+                    if subint1 == 0:
+                        if int(nummers[int1]) != 0:
+                            if subint2 == 0:
+                                jumpswitch = int(nummers[int2])
+                                x = jumpswitch%4
+                                jump = True
+                            elif subint2 == 1:
+                                jumpswitch = int2
+                                x = jumpswitch%4
+                                jump = True
+                            elif subint2 == 2:
+                                jumpswitch = int(nummers[int2 + relativebase])
+                                x = jumpswitch%4
+                                jump = True
+                        else:
+                            x += 3
+                    elif subint1 == 1:
+                        if int1 != 0:
+                            if subint2 == 0:
+                                jumpswitch = int(nummers[int2])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 1:
+                                jumpswitch = int2
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 2:
+                                jumpswitch = int(nummers[int2 + relativebase])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                        else:
+                            x += 3
+                    elif subint1 == 2:
+                        if int(nummers[int1 + relativebase]) != 0:
+                            if subint2 == 0:
+                                jumpswitch = int(nummers[int2])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 1:
+                                jumpswitch = int2
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 2:
+                                jumpswitch = int(nummers[int2 + relativebase])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                        else:
+                            x += 3
+                    
+                    
+                                 
+                elif subint0 == 6:
+                    int2 = int(nummers[e+2])
+                    if subint1 == 0:
+                        if int(nummers[int1]) == 0:
+                            if subint2 == 0:
+                                jumpswitch = int(nummers[int2])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 1:
+                                jumpswitch = int2
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 2:
+                                jumpswitch = int(nummers[int2 + relativebase])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                        else:
+                            x += 3
+                    elif subint1 == 1:
+                        if int1 == 0:
+                            if subint2 == 0:
+                                jumpswitch = int(nummers[int2])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 1:
+                                jumpswitch = int2
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 2:
+                                jumpswitch = int(nummers[int2 + relativebase])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                        else:
+                            x += 3
+                    elif subint1 == 2:
+                        if int(nummers[int1 + relativebase]) == 0:
+                            if subint2 == 0:
+                                jumpswitch = int(nummers[int2])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 1:
+                                jumpswitch = int2
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                            elif subint2 == 2:
+                                jumpswitch = int(nummers[int2 + relativebase])
+                                x = jumpswitch%4
+                                jump = True
+                                val = True
+                        else:
+                            x += 3
+                        
+                elif subint0 == 7:
+                    int2 = int(nummers[e+2])
+                    int3 = int(nummers[e+3])
+                    if subint1 == 0:
+                        if subint2 == 0:
+                            if int(nummers[int1]) < int(nummers[int2]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 1:
+                            if int(nummers[int1]) < int2:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 2:
+                            if int(nummers[int1]) < int(nummers[int2 + relativebase]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                    elif subint1 == 1:
+                        if subint2 == 0:
+                            if int1 < int(nummers[int2]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 1:
+                            if int1 < int2:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 2:
+                            if int1 < int(nummers[int2 + relativebase]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                    elif subint1 == 2:
+                        if subint1 == 0:
+                            if int(nummers[int1 + relativebase]) < int(nummers[int2]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 1:
+                            if int(nummers[int1 + relativebase]) < int2:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 2:
+                            if int(nummers[int1 + relativebase]) < int(nummers[int2 + relativebase]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        
+                elif subint0 == 8:
+                    int2 = int(nummers[e+2])
+                    int3 = int(nummers[e+3])
+                    if subint1 == 0:
+                        if subint2 == 0:
+                            if int(nummers[int1]) == int(nummers[int2]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 1:
+                            if int(nummers[int1]) == int2:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 2:
+                            if int(nummers[int1]) == int(nummers[int2 + relativebase]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                    elif subint1 == 1:
+                        if subint2 == 0:
+                            if int1 == int(nummers[int2]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 1:
+                            if int1 == int2:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 2:
+                            if int1 == int(nummers[int2 + relativebase]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                    elif subint1 == 2:
+                        if subint2 == 0:
+                            if int(nummers[int1 + relativebase]) == int(nummers[int2]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 1:
+                            if int(nummers[int1 + relativebase]) == int2:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+                        elif subint2 == 2:
+                            if int(nummers[int1 + relativebase]) == int(nummers[int2 + relativebase]):
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 1
+                                else:
+                                    nummers[int3] = 1
+                            else:
+                                if subint3 == 2:
+                                    nummers[int3 + relativebase] = 0
+                                else:
+                                    nummers[int3] = 0
+
+                elif subint0 == 9:
+                    if subint1 == 0:
+                        relativebase += nummers[int1]
+                        x += 2
+                    elif subint1 == 1:
+                        relativebase += int1
+                        x += 2
+                    elif subint1 == 2:
+                        relativebase += nummers[int1 + relativebase]
+                        x += 2
+    if val == False:            
+        e += 1
+
+ytel = 0
+xtel = 0
+totaal = 0
+letters = ""
+visueel = []
+for e in range(0,26):
+    for f in range(0, 37):
+        if gamecoords[totaal][0] == f and gamecoords[totaal][1] == e:
+            if gamecoords[totaal][2] == 0:
+                letters += " "
+            elif gamecoords[totaal][2] == 1:
+                letters += "#"
+            elif gamecoords[totaal][2] == 2:
+                letters += "@"
+            elif gamecoords[totaal][2] == 3:
+                letters += "-"
+            elif gamecoords[totaal][2] == 4:
+                letters += "O"
+        totaal += 1
+        if totaal%37 == 0:
+            visueel.append(letters)
+            letters = ""
+            
+visueel        
+for e in visueel:
+    print(e)
+
+aantal = []           
+for e in gamecoords:
+    if e[2] == 2:
+        aantal.append(e)
+
+print(len(aantal))
+#369       
+
+#####################################
+#                                   #
+# @@@@ @   @ @@@@@@ @@@ @ @ @@ @@ @ #
+# @  @ @@@ @@@@@@@@@ @@ @@@@@ @@@   #
+# @ @@@  @@@@ @ @  @@@@@@@ @@ @  @  #
+# @ @@@@ @@     @@@@@     @@@  @  @ #
+#  @    @ @ @@@@  @ @@  @@ @ @@@@ @ #
+# @@ @@     @ @  @@@ @@ @@@@ @@@@   #
+# @@@@@@ @ @@@ @@@@@@@@@@@@@@  @ @  #
+# @@@@@  @ @ @@    @  @@@@@@   @@@  #
+#  @@@@  @ @@      @@@@@@@@ @@@   @ #
+# @ @@@ @ @@@@ @@@@  @@  @   @@@@   #
+# @ @@@@@@@  @  @@@  @@ @ @ @@@@@ @ #
+# @@@ @ @@ @@@@@   @@ @@ @    @@@   #
+# @@  @@@  @ @@@  @@@  @@@@   @ @@@ #
+#     @@ @@ @@ @@@   @@  @@ @  @@ @ #
+# @ @ @@  @@ @ @ @@ @  @@ @@ @@@@@@ #
+# @  @ @@@ @@@@@@  @  @@  @@@@  @@  #
+# @@@@ @@@ @@@@  @@@ @ @ @@ @@  @@  #
+# @@@@@   @@@@@@ @@@ @@ @@@@@   @@  #
+#                                   #
+#               O                   #
+#                                   #
+#                                   #
+#                 -                 #
+#                                   #
+        
+
+
+
+
+
