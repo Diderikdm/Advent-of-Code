@@ -1,0 +1,90 @@
+from math import ceil
+
+
+
+def bereken_ore(aantal_fuel):
+    i = open("C:/Projecten/d14.txt")
+
+    data = i.read().splitlines()
+
+
+    ben = ""
+    res = ""
+    benodigd = []
+    resultaat = []
+    ing = {}
+    ing_over = {}
+    
+    for e in data:
+        ben, res = e.split(" => ")
+        benodigd.append(ben.split(", "))
+        resultaat.append(res)
+        
+    for e in resultaat:
+        aantal, ingr = e.split(" ")
+        aantal = int(aantal)
+        ing[ingr] = aantal
+        ing_over[ingr] = 0
+        
+    ing_over["ORE"] = 0
+    ing["ORE"] = 1
+    volgorde = ["FUEL"]
+    volgorde_nodig = [aantal_fuel]
+    volgorde_levelsdiep = [1]
+
+    e = 0
+    while e < len(volgorde):
+        x = volgorde_levelsdiep[e]+1
+        for f in resultaat:
+            res_aantal, res_wat = f.split(" ")
+            res_aantal = int(res_aantal)
+            if res_wat == volgorde[e]:
+                for g in reversed(benodigd[resultaat.index(f)]):
+                    ben_aantal, ben_wat = g.split(" ")
+                    ben_aantal = int(ben_aantal)
+                    volgorde.insert(e+1, ben_wat)
+                    volgorde_nodig.insert(e+1, ben_aantal)
+                    volgorde_levelsdiep.insert(e+1, x)                               
+        e += 1
+
+
+    oretotaal = 0
+    p = 1
+    while p < len(volgorde):
+        q = 0
+        while q < p:
+            if volgorde_levelsdiep[q] < volgorde_levelsdiep[p]:
+                key = q
+            q+=1
+        if volgorde[p] != "ORE":
+            aantalnodigruw = ((volgorde_nodig[p]) * int(volgorde_nodig[key]/ing[volgorde[key]])) - ing_over[volgorde[p]]
+            aantalnodig = ceil(aantalnodigruw/ing[volgorde[p]])*ing[volgorde[p]]
+            volgorde_nodig[p] = aantalnodig
+            ing_over[volgorde[p]] = aantalnodig - aantalnodigruw
+        else:
+            oretotaal += volgorde_nodig[p] * int(volgorde_nodig[key]/ing[volgorde[key]])
+        p+=1
+        
+    return oretotaal
+
+
+#part 1:
+print(bereken_ore(1))
+
+
+#part 2:
+triedfuels = []
+tryfuel = int(1000000000000 / 1046184)
+a = 0
+while a == False:
+    b = berekenore(tryfuel)
+    if b not in triedfuels:
+        triedfuels.append(b)
+    elif b < 1000000000000 and b in triedfuels:
+        print(int(tryfuel))
+        break
+    if b != 1000000000000:
+        test = 1000000000000 / b
+        tryfuel *= test    
+        
+        
