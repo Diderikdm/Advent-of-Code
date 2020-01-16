@@ -2,82 +2,82 @@ from math import ceil
 
 
 
-def bereken_ore(aantal_fuel):
+def calculate_ore(amount_fuel):
     i = open("C:/Projecten/d14.txt")
 
     data = i.read().splitlines()
 
 
-    ben = ""
+    need = ""
     res = ""
-    benodigd = []
-    resultaat = []
+    needed = []
+    result = []
     ing = {}
-    ing_over = {}
+    ing_plus = {}
     
     for e in data:
-        ben, res = e.split(" => ")
-        benodigd.append(ben.split(", "))
-        resultaat.append(res)
+        need, res = e.split(" => ")
+        needed.append(need.split(", "))
+        result.append(res)
         
-    for e in resultaat:
-        aantal, ingr = e.split(" ")
-        aantal = int(aantal)
-        ing[ingr] = aantal
-        ing_over[ingr] = 0
+    for e in result:
+        amount, ingr = e.split(" ")
+        amount = int(amount)
+        ing[ingr] = amount
+        ing_plus[ingr] = 0
         
-    ing_over["ORE"] = 0
+    ing_plus["ORE"] = 0
     ing["ORE"] = 1
-    volgorde = ["FUEL"]
-    volgorde_nodig = [aantal_fuel]
-    volgorde_levelsdiep = [1]
+    chain = ["FUEL"]
+    chain_needed = [amount_fuel]
+    chain_levelsdeep = [1]
 
     e = 0
-    while e < len(volgorde):
-        x = volgorde_levelsdiep[e]+1
-        for f in resultaat:
-            res_aantal, res_wat = f.split(" ")
-            res_aantal = int(res_aantal)
-            if res_wat == volgorde[e]:
-                for g in reversed(benodigd[resultaat.index(f)]):
-                    ben_aantal, ben_wat = g.split(" ")
-                    ben_aantal = int(ben_aantal)
-                    volgorde.insert(e+1, ben_wat)
-                    volgorde_nodig.insert(e+1, ben_aantal)
-                    volgorde_levelsdiep.insert(e+1, x)                               
+    while e < len(chain):
+        levelsdeep = chain_levelsdeep[e]+1
+        for f in result:
+            res_amount, res_what = f.split(" ")
+            res_amount = int(res_amount)
+            if res_what == chain[e]:
+                for g in reversed(needed[result.index(f)]):
+                    need_amount, need_what = g.split(" ")
+                    need_amount = int(need_amount)
+                    chain.insert(e+1, need_what)
+                    chain_needed.insert(e+1, need_amount)
+                    chain_levelsdeep.insert(e+1, levelsdeep)                               
         e += 1
 
 
-    oretotaal = 0
+    ore_total = 0
     p = 1
-    while p < len(volgorde):
+    while p < len(chain):
         q = 0
         while q < p:
-            if volgorde_levelsdiep[q] < volgorde_levelsdiep[p]:
+            if chain_levelsdeep[q] < chain_levelsdeep[p]:
                 key = q
             q+=1
-        if volgorde[p] != "ORE":
-            aantalnodigruw = ((volgorde_nodig[p]) * int(volgorde_nodig[key]/ing[volgorde[key]])) - ing_over[volgorde[p]]
-            aantalnodig = ceil(aantalnodigruw/ing[volgorde[p]])*ing[volgorde[p]]
-            volgorde_nodig[p] = aantalnodig
-            ing_over[volgorde[p]] = aantalnodig - aantalnodigruw
+        if chain[p] != "ORE":
+            amountneeded_raw = ((chain_needed[p]) * int(chain_needed[key]/ing[chain[key]])) - ing_plus[chain[p]]
+            amountneeded = ceil(amountneeded_raw/ing[chain[p]])*ing[chain[p]]
+            chain_needed[p] = amountneeded
+            ing_plus[chain[p]] = amountneeded - amountneeded_raw
         else:
-            oretotaal += volgorde_nodig[p] * int(volgorde_nodig[key]/ing[volgorde[key]])
+            ore_total += chain_needed[p] * int(chain_needed[key]/ing[chain[key]])
         p+=1
         
-    return oretotaal
+    return ore_total
 
 
 #part 1:
-print(bereken_ore(1))
+print(calculate_ore(1))
 
 
 #part 2:
 triedfuels = []
-tryfuel = int(1000000000000 / bereken_ore(1))
+tryfuel = int(1000000000000 / calculate_ore(1))
 a = 0
 while a == False:
-    b = berekenore(tryfuel)
+    b = calculate_ore(tryfuel)
     if b not in triedfuels:
         triedfuels.append(b)
     elif b < 1000000000000 and b in triedfuels:
@@ -86,5 +86,3 @@ while a == False:
     if b != 1000000000000:
         test = 1000000000000 / b
         tryfuel *= test    
-        
-        
