@@ -61,21 +61,21 @@ def calculate_ore(amount_fuel):
             ore_total += chain_needed[p] * int(chain_needed[key]/ing[chain[key]])
         p+=1
     return ore_total
-
+    
 #part 1:
-print(calculate_ore(1))
+ore_for_one_fuel = calculate_ore(1)
+print(ore_for_one_fuel)
 
 #part 2:
 triedfuels = []
-tryfuel = int(1000000000000 / calculate_ore(1))
+tryfuel = int(1000000000000 / ore_for_one_fuel)
 a = 0
 while a == False:
-    b = calculate_ore(tryfuel)      
+    b = calculate_ore(tryfuel)
     if b not in triedfuels:
         triedfuels.append(b)
     elif b < 1000000000000 and b in triedfuels:
         print(int(tryfuel))
         break
-    if b != 1000000000000:
-        test = 1000000000000 / b
-        tryfuel *= test
+    test = 1000000000000 / b
+    tryfuel *= test
