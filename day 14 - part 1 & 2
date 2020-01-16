@@ -71,11 +71,11 @@ triedfuels = []
 tryfuel = int(1000000000000 / ore_for_one_fuel)
 a = 0
 while a == False:
-    b = calculate_ore(tryfuel)
-    if b not in triedfuels:
-        triedfuels.append(b)
-    elif b < 1000000000000 and b in triedfuels:
+    tried = calculate_ore(tryfuel)
+    if tried not in triedfuels:
+        triedfuels.append(tried)
+    elif tried < 1000000000000 and tried in triedfuels:
         print(int(tryfuel))
         break
-    test = 1000000000000 / b
+    test = 1000000000000 / tried
     tryfuel *= test
