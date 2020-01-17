@@ -1,4 +1,5 @@
 from math import ceil
+
 def calculate_ore(amount_fuel):
     i = open("C:/Projecten/d14.txt")
     data = i.read().splitlines()
