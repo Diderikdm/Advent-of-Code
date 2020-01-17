@@ -1,5 +1,4 @@
 from math import ceil
-
 def calculate_ore(amount_fuel):
     i = open("C:/Projecten/d14.txt")
     data = i.read().splitlines()
@@ -14,8 +13,7 @@ def calculate_ore(amount_fuel):
         needed.append(need.split(", "))
         result.append(res)
         amount, ingr = res.split(" ")
-        amount = int(amount)
-        ing[ingr] = amount
+        ing[ingr] = int(amount)
         ing_plus[ingr] = 0
         
     chain = ["FUEL"]
@@ -27,13 +25,11 @@ def calculate_ore(amount_fuel):
         levelsdeep = chain_levelsdeep[e]+1
         for f in result:
             res_amount, res_what = f.split(" ")
-            res_amount = int(res_amount)
             if res_what == chain[e]:
                 for g in reversed(needed[result.index(f)]):
                     need_amount, need_what = g.split(" ")
-                    need_amount = int(need_amount)
                     chain.insert(e+1, need_what)
-                    chain_needed.insert(e+1, need_amount)
+                    chain_needed.insert(e+1, int(need_amount))
                     chain_levelsdeep.insert(e+1, levelsdeep)                               
         e += 1
 
