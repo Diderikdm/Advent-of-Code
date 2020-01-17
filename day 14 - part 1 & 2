@@ -63,12 +63,16 @@ def calculate_ore(amount_fuel):
     return ore_total
     
 #part 1:
-ore_for_one_fuel = calculate_ore(1)
-print(ore_for_one_fuel)
+one_fuel = calculate_ore(1)
+print(one_fuel)
 
 #part 2:
+print(int(int(1000000000000 / one_fuel)*(1000000000000 / calculate_ore(int(1000000000000 / one_fuel)))))
+
+################################################################################################################################
+#part 2 alternative:
 triedfuels = []
-tryfuel = int(1000000000000 / ore_for_one_fuel)
+tryfuel = int(1000000000000 / one_fuel)
 a = 0
 while a == False:
     tried = calculate_ore(tryfuel)
