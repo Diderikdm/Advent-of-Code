@@ -9,8 +9,8 @@ def calculate_ore(amount_fuel):
     res = ""
     needed = []
     result = []
-    ing = {}
-    ing_plus = {}
+    ing = {"ORE" : 1}
+    ing_plus = {"ORE" : 0}
     
     for e in data:
         need, res = e.split(" => ")
@@ -23,8 +23,6 @@ def calculate_ore(amount_fuel):
         ing[ingr] = amount
         ing_plus[ingr] = 0
         
-    ing_plus["ORE"] = 0
-    ing["ORE"] = 1
     chain = ["FUEL"]
     chain_needed = [amount_fuel]
     chain_levelsdeep = [1]
