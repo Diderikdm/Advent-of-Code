@@ -13,9 +13,7 @@ def calculate_ore(amount_fuel):
         need, res = e.split(" => ")
         needed.append(need.split(", "))
         result.append(res)
-        
-    for e in result:
-        amount, ingr = e.split(" ")
+        amount, ingr = res.split(" ")
         amount = int(amount)
         ing[ingr] = amount
         ing_plus[ingr] = 0
