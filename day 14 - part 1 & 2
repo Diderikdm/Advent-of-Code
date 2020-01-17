@@ -5,8 +5,6 @@ def calculate_ore(amount_fuel):
 
     data = i.read().splitlines()
 
-    need = ""
-    res = ""
     needed = []
     result = []
     ing = {"ORE" : 1}
