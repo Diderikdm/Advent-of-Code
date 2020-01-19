@@ -1,9 +1,9 @@
-def mod1(ooxoo, nummers, position, relativebase):
-    if ooxoo == 0:
+def mod1(oxxoo, nummers, position, relativebase):
+    if oxxoo == 0:
         return int(nummers[int(nummers[position])])
-    elif ooxoo == 1:
+    elif oxxoo == 1:
         return int(nummers[position])
-    elif ooxoo == 2:
+    elif oxxoo == 2:
         return int(nummers[(int(nummers[position]))+relativebase])
     
 def mod2(xoooo, nummers, position, relativebase):
