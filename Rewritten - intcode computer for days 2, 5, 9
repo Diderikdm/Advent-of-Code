@@ -31,7 +31,6 @@ while e < len(nummers):
     oxooo = int(nummers[e][1])
     ooxoo = int(nummers[e][2])
     oooxx = int(nummers[e][3:])
-    
     if oooxx == 1:
         nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
     elif oooxx == 2:
