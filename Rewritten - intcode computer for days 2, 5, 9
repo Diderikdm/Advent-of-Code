@@ -66,8 +66,7 @@ while e < len(nummers):
         steps = 2
         relativebase += mod1(ooxoo, nummers, e+1, relativebase)
     elif oooxx == 99:
-        break
-    
+        break   
     e += steps
 
 print(output)
