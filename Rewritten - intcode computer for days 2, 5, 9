@@ -63,8 +63,8 @@ while e < len(nummers):
         else:
             nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
     elif oooxx == 9:
-        relativebase += mod1(ooxoo, nummers, e+1, relativebase)
         steps = 2
+        relativebase += mod1(ooxoo, nummers, e+1, relativebase)
     elif oooxx == 99:
         break
     
