@@ -50,11 +50,11 @@ def calculate_ore(amount_fuel):
         p+=1
     return ore_total
     
-#part 1:
+#part 1: 1046184
 one_fuel = calculate_ore(1)
 print(one_fuel)
 
-#part 2:
+#part 2: 1639374
 print(int(int(1000000000000 / one_fuel)*(1000000000000 / calculate_ore(int(1000000000000 / one_fuel)))))
 
 
