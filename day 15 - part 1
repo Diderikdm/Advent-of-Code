@@ -1,0 +1,352 @@
+def mod1(oxxoo, nummers, position, relativebase):
+    if oxxoo == 0:
+        return int(nummers[int(nummers[position])])
+    elif oxxoo == 1:
+        return int(nummers[position])
+    elif oxxoo == 2:
+        return int(nummers[(int(nummers[position]))+relativebase])
+    
+def mod2(xoooo, nummers, position, relativebase):
+    if xoooo == 0:
+        return int(nummers[position])
+    elif xoooo == 1:
+        return int(position)
+    elif xoooo == 2:
+        return int(int(nummers[position]) + relativebase)
+
+def visible(output):
+    visual = ""
+    for h in range(len(output)):
+        visual += output[h][2]
+        if h > 0 and h%50 == 49:
+            visual += "\n"
+    print(visual)
+
+def trystep(output, currentcoord):
+    global geweest
+    for b in output:
+        if b[0] == currentcoord[0] and b[1] == currentcoord[1]:
+            c = 0
+            while c < len(output):
+                if output[c][0] == currentcoord[0] and output[c][1] == (currentcoord[1]-1):
+                    if output[c][2] == " ":
+                        return 1
+                elif output[c][0] == currentcoord[0] and output[c][1] == (currentcoord[1]+1):
+                    if output[c][2] == " ":
+                        return 2
+                elif output[c][0] == (currentcoord[0]-1) and output[c][1] == (currentcoord[1]):
+                    if output[c][2] == " ":
+                        return 3
+                elif output[c][0] == (currentcoord[0]+1) and output[c][1] == (currentcoord[1]):
+                    if output[c][2] == " ":
+                        return 4
+                c+=1
+            else:
+                if currentcoord[1] > geweest[-2][1]:
+                    del geweest[-2:]
+                    return 1
+                elif currentcoord[1] < geweest[-2][1]:
+                    del geweest[-2:]
+                    return 2
+                elif currentcoord[0] > geweest[-2][0]:
+                    del geweest[-2:]
+                    return 3
+                elif currentcoord[0] < geweest[-2][0]:
+                    del geweest[-2:]
+                    return 4
+                
+    
+
+def movement(output, move, what, currentcoord):
+    global geweest
+    global step
+    move = int(move)
+    what = int(what)
+    if move == 1:
+        if what == 0:
+            for b in output:
+                if b[0] == currentcoord[0] and b[1] == currentcoord[1]:
+                    c = 0
+                    while c < len(output):
+                        if output[c][0] == currentcoord[0] and output[c][1] == (currentcoord[1]-1):
+                            temp = (output[c][0], output[c][1], "#")
+                            output[c] = temp
+                        c+=1
+        elif what == 1:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]) and output[b][1] == (currentcoord[1]-1):
+                    temp = (output[b][0], output[b][1], "D")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+                
+        elif what == 2:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]) and output[b][1] == (currentcoord[1]-1):
+                    temp = (output[b][0], output[b][1], "@")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+               
+    elif move == 2:
+        if what == 0:
+            for b in output:
+                if b[0] == currentcoord[0] and b[1] == currentcoord[1]:
+                    c = 0
+                    while c < len(output):
+                        if output[c][0] == currentcoord[0] and output[c][1] == (currentcoord[1]+1):
+                            temp = (output[c][0], output[c][1], "#")
+                            output[c] = temp
+                        c+=1
+        elif what == 1:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]) and output[b][1] == (currentcoord[1]+1):
+                    temp = (output[b][0], output[b][1], "D")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+               
+        elif what == 2:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]) and output[b][1] == (currentcoord[1]+1):
+                    temp = (output[b][0], output[b][1], "@")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+                
+    elif move == 3:
+        if what == 0:
+            for b in output:
+                if b[0] == currentcoord[0] and b[1] == currentcoord[1]:
+                    c = 0
+                    while c < len(output):
+                        if output[c][0] == (currentcoord[0]-1) and output[c][1] == (currentcoord[1]):
+                            temp = (output[c][0], output[c][1], "#")
+                            output[c] = temp
+                        c+=1
+        elif what == 1:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]-1) and output[b][1] == (currentcoord[1]):
+                    temp = (output[b][0], output[b][1], "D")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+               
+        elif what == 2:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]-1) and output[b][1] == (currentcoord[1]):
+                    temp = (output[b][0], output[b][1], "@")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+                
+
+    elif move == 4:
+        if what == 0:
+            for b in output:
+                if b[0] == currentcoord[0] and b[1] == currentcoord[1]:
+                    c = 0
+                    while c < len(output):
+                        if output[c][0] == (currentcoord[0]+1) and output[c][1] == (currentcoord[1]):
+                            temp = (output[c][0], output[c][1], "#")
+                            output[c] = temp
+                        c+=1
+        elif what == 1:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]+1) and output[b][1] == (currentcoord[1]):
+                    temp = (output[b][0], output[b][1], "D")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+        elif what == 2:
+            b = 0
+            while b < len(output):
+                if output[b][0] == currentcoord[0] and output[b][1] == currentcoord[1]:
+                    temp = (output[b][0], output[b][1], ".")
+                    output[b] = temp
+                elif output[b][0] == (currentcoord[0]+1) and output[b][1] == (currentcoord[1]):
+                    temp = (output[b][0], output[b][1], "@")
+                    if output[b][2] == ".":
+                        step -= 1
+                    else:
+                        step += 1
+                    output[b] = temp 
+                b+=1
+                    
+
+                       
+    return output
+                            
+                                                                
+
+h = open("C:/Projecten/d15.txt")
+nummers = h.read().split(",")
+for e in range(10000):
+    nummers.append("0")
+
+
+output = []
+k = " "
+for j in range(50):
+    for l in range(50):
+        if j == 25 and l == 25:
+            coords = (l, j, "D")
+        else:
+            coords = (l, j, k)
+        output.append(coords)
+
+visible(output)
+geweest = []    
+e = 0
+relativebase = 0
+step = 0
+while e < len(nummers):
+    steps = 4
+    if int(nummers[e]) < 99999:
+        zeros = 5 - len(str(nummers[e]))
+        nummers[e] = (zeros * "0" + str(nummers[e]))
+    xoooo = int(nummers[e][0])
+    oxooo = int(nummers[e][1])
+    ooxoo = int(nummers[e][2])
+    oooxx = int(nummers[e][3:])
+    if oooxx == 1:
+        nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
+    elif oooxx == 2:
+        nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) * mod1(oxooo, nummers, e+2, relativebase)
+    elif oooxx == 3:
+        for v in output:
+            if v[2] == "D":
+                currentcoord = v
+        gew = (currentcoord[0], currentcoord[1])
+        if gew not in geweest:
+            geweest.append(gew)
+        steps = 2
+        if ooxoo != 1:
+            nummers[mod2(ooxoo, nummers, e+1, relativebase)] = trystep(output, currentcoord)
+            move = nummers[mod2(ooxoo, nummers, e+1, relativebase)]
+    elif oooxx == 4:
+        steps = 2
+        what = (int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
+        output = movement(output, move, what, currentcoord)
+        visible(output)
+        print(step)
+        if what == 2:
+            break
+    elif oooxx == 5:
+        steps = 3
+        if mod1(ooxoo, nummers, e+1, relativebase) != 0:
+            steps = 0
+            e = mod1(oxooo, nummers, e+2, relativebase)
+    elif oooxx == 6:
+        steps = 3
+        if mod1(ooxoo, nummers, e+1, relativebase) == 0:
+            steps = 0
+            e = mod1(oxooo, nummers, e+2, relativebase)
+    elif oooxx == 7:
+        if mod1(ooxoo, nummers, e+1, relativebase) < mod1(oxooo, nummers, e+2, relativebase):
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+        else:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+    elif oooxx == 8:
+        if mod1(ooxoo, nummers, e+1, relativebase) == mod1(oxooo, nummers, e+2, relativebase):
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+        else:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+    elif oooxx == 9:
+        steps = 2
+        relativebase += mod1(ooxoo, nummers, e+1, relativebase)
+    elif oooxx == 99:
+        break    
+    e += steps
+
+
+#380
+     ### ####### ### ### ######### ### #####      
+    #...#.......#...#...#.........#...#.....#     
+    #.###.#.###.#.#.#.#.#####.###.#.#.###.#.#     
+    #.....#...#.#.#...#.#.....#.....#.....#.#     
+    #.#### ##.#.#.#####.#.#.#########.#####.#     
+    #.....#...#...#...#...#.#...#...#.#...#.#     
+     ####.#.#######.###.#####.#.#.#.###.#.##      
+    #...#.#.#...........#.....#...#.....#...#     
+    #.#.###.#.###########.######## ##### ##.#     
+    #.#.....#.#.............#.....#.....#...#     
+    #.#######.#.###########.###.###. ##.#.##      
+    #...#...#.#...#...#...#.....#...#...#...#     
+    #.#.#.###.###.###.#.#.#####.#. ##.#####.#     
+    #.#.#.......#...#.#.#.#.....#.#...#.....#     
+    #.#.###########.#.#.#.###### .#.###.###.#     
+    #.#...#...#...#.#.#.#.#.....#.#.#.....#.#     
+     ####.#.#.#.#.#.#.#.#.#. ##.#.#.#.###.#.#     
+    #...#...#...#.....#.#...#.#...#.#.#...#.#     
+     .#.###############. ####.#####.###.####      
+     .#.............#...#...#.....#...#.#...#     
+     .       ######.#.   ##.#.###.###.#.#.#.#     
+     .      #.....#...  #.#.#.#.#.#...#...#.#     
+     . ######.#  .##    #.#.#.#.#.#.#######.#     
+     .#.......   ...    #.#.....#.#.........#     
+     .#.#    ##### .    #.#######.#### ####.#     
+     ...    #.....#.    #.......#.#...#.....      
+     #####   .###.#.       ####.#.#.#.#.## #      
+    #.....   ...#...      #.....#.#.#.#...#.#     
+    #.###.     .       ####.#####.#.#.###.#.#     
+    #.#...     .      #.....#...#... .....#.#     
+    #.#.       .#######.#####.###.#########.#     
+    #.#.       .........#.........#.........#     
+    #.#. ### ### ########.####     . ######.#     
+     @ .#...#...#.......#.....#    .#.....#.#     
+     ##.#.#.#.#.#.#### .## ##.#    .###.#.#.#     
+    #...#.#.#.#...#...#...#...     ...#.#.#.#     
+     .###.#.#.#####.#.###.#.#########.#.#.#.#     
+     ..... .#.......#.#...#...........#.#...      
+           .#########.#.###############.#         
+           ........... .................          
