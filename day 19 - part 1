@@ -98,7 +98,7 @@ for o in grid2:
             occs += 1
 
 print(occs)
-        
+#114        
         
         
         
