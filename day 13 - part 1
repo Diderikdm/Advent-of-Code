@@ -70,39 +70,36 @@ while e < len(nummers):
     
     e += steps
 
-xcoords = []
-ycoords = []
-titleid = []
+coords = []
 game = []
 a=0
 while a < len(output):
-    xcoords.append(output[a])
-    ycoords.append(output[a+1])
-    titleid.append(output[a+2])
+    coord = (output[a], output[a+1], output[a+2])
+    coords.append(coord)
     a+=3
-
+    
 step = 0
 visual = ""
-for b in range(0, max(ycoords)+1):
-    for c in range(0, max(xcoords)+1):
-        if titleid[step] == 0:
-            visual += " "
-        elif titleid[step] == 1:
-            visual += "*"
-        elif titleid[step] == 2:
-            visual += "#"
-        elif titleid[step] == 3:
-            visual += "_"
-        elif titleid[step] == 4:
-            visual += "O"
-        step += 1
-    visual += "\n"    
+for e in coords:
+    if coords[step][2] == 0:
+        visual += " "
+    elif coords[step][2] == 1:
+        visual += "*"
+    elif coords[step][2] == 2:
+        visual += "#"
+    elif coords[step][2] == 3:
+        visual += "_"
+    elif coords[step][2] == 4:
+        visual += "O"
+    step += 1
+    if step%37 == 0:
+        visual += "\n"    
 print(visual)
 
 counter = 0
-for v in titleid:
-    if v == 2:
+for v in coords:
+    if v[2] == 2:
         counter += 1
 
 print(counter)
-        
+#369        
