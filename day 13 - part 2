@@ -76,7 +76,10 @@ def visual():
         else:
             score = output[a+2]
         a+=3
-    print(score)   
+    counter = 0
+    for v in coords:
+        if v[2] == 2:
+            counter += 1 
     step = 0
     visual = ""
     for e in coords:
@@ -93,75 +96,77 @@ def visual():
         step += 1
         if step%37 == 0:
             visual += "\n"
-    print(visual)
-    counter = 0
-    for v in coords:
-        if v[2] == 2:
-            counter += 1
+    print("\n" + "\n" + "\n" + "\n" + "Blocks remaining: " + str(counter) + "\n" + "\n" + "Current score: " + str(score) + "\n" + visual)
 
+def intcode(start):
+    global output
+    global changes
+    h = open("C:/Projecten/d13.txt")
+    nummers = h.read().split(",")
+    for e in range(2000):
+        nummers.append("0")
+    firsttime = True
+    nummers[0] = start
+    e = 0
+    relativebase = 0
+    while e < len(nummers):
+        steps = 4
+        if int(nummers[e]) < 99999:
+            zeros = 5 - len(str(nummers[e]))
+            nummers[e] = (zeros * "0" + str(nummers[e]))
+        xoooo = int(nummers[e][0])
+        oxooo = int(nummers[e][1])
+        ooxoo = int(nummers[e][2])
+        oooxx = int(nummers[e][3:])
+        if oooxx == 1:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 2:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) * mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 3:
+            steps = 2
+            change(changes)
+            visual()
+            if ooxoo != 1:
+                nummers[mod2(ooxoo, nummers, e+1, relativebase)] = movement()
+            firsttime = False
+        elif oooxx == 4:
+            steps = 2
+            if firsttime == True:
+                output.append(int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
+            elif firsttime == False:
+                changes.append(int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
+        elif oooxx == 5:
+            steps = 3
+            if mod1(ooxoo, nummers, e+1, relativebase) != 0:
+                steps = 0
+                e = mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 6:
+            steps = 3
+            if mod1(ooxoo, nummers, e+1, relativebase) == 0:
+                steps = 0
+                e = mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 7:
+            if mod1(ooxoo, nummers, e+1, relativebase) < mod1(oxooo, nummers, e+2, relativebase):
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+            else:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+        elif oooxx == 8:
+            if mod1(ooxoo, nummers, e+1, relativebase) == mod1(oxooo, nummers, e+2, relativebase):
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+            else:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+        elif oooxx == 9:
+            steps = 2
+            relativebase += mod1(ooxoo, nummers, e+1, relativebase)
+        elif oooxx == 99:
+            break       
+        e += steps
+
+import os
 from time import sleep
-h = open("C:/Projecten/d13.txt")
-nummers = h.read().split(",")
-for e in range(2000):
-    nummers.append("0")
 output = []
 changes = []
-firsttime = True
-nummers[0] = 2
-e = 0
-relativebase = 0
-while e < len(nummers):
-    steps = 4
-    if int(nummers[e]) < 99999:
-        zeros = 5 - len(str(nummers[e]))
-        nummers[e] = (zeros * "0" + str(nummers[e]))
-    xoooo = int(nummers[e][0])
-    oxooo = int(nummers[e][1])
-    ooxoo = int(nummers[e][2])
-    oooxx = int(nummers[e][3:])
-    if oooxx == 1:
-        nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
-    elif oooxx == 2:
-        nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) * mod1(oxooo, nummers, e+2, relativebase)
-    elif oooxx == 3:
-        steps = 2
-        change(changes)
-        visual()
-        if ooxoo != 1:
-            nummers[mod2(ooxoo, nummers, e+1, relativebase)] = movement()
-        firsttime = False
-    elif oooxx == 4:
-        steps = 2
-        if firsttime == True:
-            output.append(int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
-        elif firsttime == False:
-            changes.append(int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
-    elif oooxx == 5:
-        steps = 3
-        if mod1(ooxoo, nummers, e+1, relativebase) != 0:
-            steps = 0
-            e = mod1(oxooo, nummers, e+2, relativebase)
-    elif oooxx == 6:
-        steps = 3
-        if mod1(ooxoo, nummers, e+1, relativebase) == 0:
-            steps = 0
-            e = mod1(oxooo, nummers, e+2, relativebase)
-    elif oooxx == 7:
-        if mod1(ooxoo, nummers, e+1, relativebase) < mod1(oxooo, nummers, e+2, relativebase):
-            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
-        else:
-            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
-    elif oooxx == 8:
-        if mod1(ooxoo, nummers, e+1, relativebase) == mod1(oxooo, nummers, e+2, relativebase):
-            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
-        else:
-            nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
-    elif oooxx == 9:
-        steps = 2
-        relativebase += mod1(ooxoo, nummers, e+1, relativebase)
-    elif oooxx == 99:
-        break       
-    e += steps
+intcode(2)
 change(changes)
 visual()
 sleep(10000)
