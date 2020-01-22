@@ -163,8 +163,9 @@ while e < len(nummers):
     elif oooxx == 99:
         break       
     e += steps
+change(changes)
 visual()
-sleep(1000)
+sleep(10000)
 
 
 #19210
