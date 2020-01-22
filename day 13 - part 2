@@ -51,7 +51,6 @@ def movement():
             coord = (output[a], output[a+1], output[a+2])
             coords.append(coord)
         a+=3
-    blocks = 0
     for e in coords:
         if coords[step][2] == 3:
             paddle = int(coords[step][0])
