@@ -90,7 +90,7 @@ def visual():
         elif coords[step][2] == 2:
             visual += "#"
         elif coords[step][2] == 3:
-            visual += chr(0x2594)
+            visual += "-"
         elif coords[step][2] == 4:
             visual += "O"
         step += 1
