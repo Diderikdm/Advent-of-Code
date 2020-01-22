@@ -90,13 +90,13 @@ def visual():
         elif coords[step][2] == 2:
             visual += "#"
         elif coords[step][2] == 3:
-            visual += "_"
+            visual += chr(0x2594)
         elif coords[step][2] == 4:
             visual += "O"
         step += 1
         if step%37 == 0:
             visual += "\n"
-    print("\n" + "\n" + "\n" + "\n" + "Blocks remaining: " + str(counter) + "\n" + "\n" + "Current score: " + str(score) + "\n" + visual)
+    print("\n" * 4 + "Blocks remaining: " + str(counter) + "\n" * 2 + "Current score: " + str(score) + "\n" + visual)
 
 def intcode(start):
     global output
@@ -162,7 +162,6 @@ def intcode(start):
             break       
         e += steps
 
-import os
 from time import sleep
 output = []
 changes = []
