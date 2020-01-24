@@ -473,9 +473,9 @@ findlengthcrossroads()
 steps = 0
 for e in portallength:
     if e[1][2] == "A":
-        steps += int(e[2])
+        steps += int(e[2]-1)
     elif e[1][2] == "Z":
-        steps += int(e[2])
+        steps += int(e[2-1])
     elif e[2] == 277:
         steps += int(e[2])
     elif e[2] == 419:
