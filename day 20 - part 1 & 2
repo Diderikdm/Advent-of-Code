@@ -206,25 +206,6 @@ def findlengthcrossroads():
     print(portallength)
                     
     
-
-
-
-
-def initwalk():
-    global coords
-    global crossroads
-    global portals
-    global steps
-    global pastcoords
-    global paststeps
-    for e in portals:
-        if e[2] == "AA":
-            portalcoord = e[:]
-            pastcoords.append(portalcoord)
-            paststeps.append(-1)
-    currentstep = teleport(portalcoord)
-    pastcoords.append(currentstep)
-    paststeps.append(steps)
     
 def walk(globalcrossroad=0, num=1):
     global coords
