@@ -44,16 +44,22 @@ while e < len(nummers):
                 for z in output:
                     print(z, end='')
                 temp = input()
-            if counter < len(temp) and temp != "WALK":
+            if counter < len(temp) and temp != "WALK" and temp != "RUN":
                 nummers[mod2(ooxoo, nummers, e+1, relativebase)] = ord(temp[counter])
                 counter += 1
-            elif counter == len(temp) and temp != "WALK":
+            elif counter == len(temp) and temp != "WALK" and temp != "RUN":
                 nummers[mod2(ooxoo, nummers, e+1, relativebase)] = 10
                 counter = 0
             if counter != 4 and temp == "WALK":
                 nummers[mod2(ooxoo, nummers, e+1, relativebase)] = ord(temp[counter])
                 counter += 1
             elif counter ==4 and temp == "WALK":
+                nummers[mod2(ooxoo, nummers, e+1, relativebase)] = 10
+                counter = 0
+            if counter != 3 and temp == "RUN":
+                nummers[mod2(ooxoo, nummers, e+1, relativebase)] = ord(temp[counter])
+                counter += 1
+            elif counter == 3 and temp == "RUN":
                 nummers[mod2(ooxoo, nummers, e+1, relativebase)] = 10
                 counter = 0
                 
@@ -96,8 +102,12 @@ for e in output:
 
 print(visual)
     
-#Input instructions:
+#Part 1:
+    
+Input instructions:
 OR A J
+Input instructions:
+AND B J
 Input instructions:
 AND C J
 Input instructions:
@@ -110,4 +120,28 @@ WALK
 Input instructions:
 
 Walking...
-#
+
+
+#Part 2:
+Input instructions:
+OR A J
+Input instructions:
+AND B J
+Input instructions:
+AND C J
+Input instructions:
+NOT J J
+Input instructions:
+AND D J
+Input instructions:
+OR E T
+Input instructions:
+OR H T
+Input instructions:
+AND T J
+Input instructions:
+RUN
+1142488337
+Input instructions:
+
+Running...
