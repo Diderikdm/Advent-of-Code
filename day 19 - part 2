@@ -85,13 +85,10 @@ while p < 2000:
     q = 0
     print(p)
     while q < 2000:
-        if p == 0 and q == 0:
+        if (q < 50 and p < 50) or (q == 0 and grid2[p-1][0] == 1) or (p > 0 and grid2[p-1][q] == 1) or (q > 0 and grid[-1] == 1):
             grid.append(intcode(q, p)[0])
         else:
-            if (q < 50 and p < 50) or (q == 0 and grid2[p-1][0] == 1) or (p > 0 and grid2[p-1][q] == 1) or (q > 0 and grid[-1] == 1):
-                grid.append(intcode(q, p)[0])
-            else:
-                grid.append(0)
+            grid.append(0)
         q+=1
     grid2.append(grid[:])
     grid.clear()
