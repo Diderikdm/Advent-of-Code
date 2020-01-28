@@ -96,6 +96,14 @@ for o in grid2:
     for r in o:
         if r == 1:
             occs += 1
+            
+string = '' 
+for e in grid2:
+    for f in e:
+        string += str(f)
+    string += "\n"
+  
+print(string)
 
 print(occs)
 #114        
