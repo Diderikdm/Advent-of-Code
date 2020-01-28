@@ -1,0 +1,146 @@
+def mod1(oxxoo, nummers, position, relativebase):
+    if oxxoo == 0:
+        return int(nummers[int(nummers[position])])
+    elif oxxoo == 1:
+        return int(nummers[position])
+    elif oxxoo == 2:
+        return int(nummers[(int(nummers[position]))+relativebase])
+    
+def mod2(xoooo, nummers, position, relativebase):
+    if xoooo == 0:
+        return int(nummers[position])
+    elif xoooo == 1:
+        return int(position)
+    elif xoooo == 2:
+        return int(int(nummers[position]) + relativebase)
+
+def intcode(input1, input2):
+    h = open("C:/Projecten/d19.txt")
+    nummers = h.read().split(",")
+    for e in range(10000):
+        nummers.append("0")
+
+    output = []
+    e = 0
+    relativebase = 0
+    firsttime = True
+    while e < len(nummers):
+        steps = 4
+        if int(nummers[e]) < 99999:
+            zeros = 5 - len(str(nummers[e]))
+            nummers[e] = (zeros * "0" + str(nummers[e]))
+        xoooo = int(nummers[e][0])
+        oxooo = int(nummers[e][1])
+        ooxoo = int(nummers[e][2])
+        oooxx = int(nummers[e][3:])
+        if oooxx == 1:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 2:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) * mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 3:
+            steps = 2
+            if ooxoo != 1:
+                if firsttime == True:
+                    nummers[mod2(ooxoo, nummers, e+1, relativebase)] = input1
+                    firsttime = False
+                elif firsttime == False:
+                    nummers[mod2(ooxoo, nummers, e+1, relativebase)] = input2
+                    firsttime = True
+
+        elif oooxx == 4:
+            steps = 2
+            output.append(int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
+        elif oooxx == 5:
+            steps = 3
+            if mod1(ooxoo, nummers, e+1, relativebase) != 0:
+                steps = 0
+                e = mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 6:
+            steps = 3
+            if mod1(ooxoo, nummers, e+1, relativebase) == 0:
+                steps = 0
+                e = mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 7:
+            if mod1(ooxoo, nummers, e+1, relativebase) < mod1(oxooo, nummers, e+2, relativebase):
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+            else:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+        elif oooxx == 8:
+            if mod1(ooxoo, nummers, e+1, relativebase) == mod1(oxooo, nummers, e+2, relativebase):
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+            else:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+        elif oooxx == 9:
+            steps = 2
+            relativebase += mod1(ooxoo, nummers, e+1, relativebase)
+        elif oooxx == 99:
+            break    
+        e += steps
+
+    return output
+
+grid = []
+grid2 = []
+coords = []
+p = 0
+go = False
+while p < 2000:
+    q = 0
+    print(p)
+    while q < 2000:
+        if p == 0 and q == 0:
+            input1 = q
+            input2 = p
+            temp = (q, p)
+            grid.append(intcode(q, p)[0])
+            coords.append(temp)
+        else:
+            if (q < 50 and p < 50) or (q == 0 and grid2[p-1][0] == 1) or (p > 0 and grid2[p-1][q] == 1) or (q > 0 and grid[-1] == 1):
+                input1 = q
+                input2 = p
+                temp = (q, p)
+                grid.append(intcode(q, p)[0])
+                coords.append(temp)
+            else:
+                input1 = q
+                input2 = p
+                temp = (q, p)
+                grid.append(0)
+                coords.append(temp)
+        q+=1
+    grid2.append(grid[:])
+    grid.clear()
+    p+=1
+
+string = ''
+occs = 0
+for o in grid2:
+    for r in o:
+        string += str(r)
+        if r == 1:
+            occs += 1
+    string += "\n"
+
+print(string)
+        
+
+print(occs)
+
+e = 0
+while e < len(grid2):
+    f = 0
+    while f < len(grid2[e]):
+        if grid2[e][f] == 1:
+            if grid2[e][f+99] == 1:
+                if grid2[e+99][f] == 1:
+                    print(f*10000+e)
+                    f = len(grid2[e])
+                    e = len(grid2)
+        f+=1
+    e+=1
+   
+#10671712        
+        
+        
+        
+        
