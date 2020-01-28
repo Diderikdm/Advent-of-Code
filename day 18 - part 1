@@ -1,0 +1,454 @@
+
+        
+
+def makecrossroads():
+    global coords
+    global crossroads
+    e=0
+    while e < len(coords):
+        counter = 0
+        if coords[e][2] == ".":
+            for f in coords:
+                if coords[e][0] == f[0] and coords[e][1] == (f[1]-1):
+                    if f[2] == "." or f[2].isalpha():
+                        counter += 1
+                if coords[e][0] == f[0] and coords[e][1] == (f[1]+1):
+                    if f[2] == "." or f[2].isalpha():
+                        counter += 1
+                if coords[e][0] == (f[0]-1) and coords[e][1] == f[1]:
+                    if f[2] == "." or f[2].isalpha():
+                        counter += 1
+                if coords[e][0] == (f[0]+1) and coords[e][1] == f[1]:
+                    if f[2] == "." or f[2].isalpha():
+                        counter += 1
+                if counter > 2:
+                    temp = (coords[e][0], coords[e][1], "@")
+                    coords[e] = temp
+                    if temp not in crossroads:
+                        crossroads.append(temp)
+        e+=1
+
+
+def checkwalls(a):
+    global coords
+    switch = False
+    counter = 0
+    for f in coords:
+        if a[0] == f[0] and a[1] == (f[1]-1):
+            if f[2] == "#":
+                counter += 1
+        if a[0] == f[0] and a[1] == (f[1]+1):
+            if f[2] == "#":
+                counter += 1
+        if a[0] == (f[0]-1) and a[1] == f[1]:
+            if f[2] == "#":
+                counter += 1
+        if a[0] == (f[0]+1) and a[1] == f[1]:
+            if f[2] == "#":
+                counter += 1
+        if counter == 3:
+            return True
+    return False
+
+
+
+def makewalls():
+    global coords
+    switch = False
+    e=0
+    while e < len(coords):
+        counter = 0
+        if coords[e][2] == ".":
+            for f in coords:
+                if coords[e][0] == f[0] and coords[e][1] == (f[1]-1):
+                    if f[2] == "#":
+                        counter += 1
+                if coords[e][0] == f[0] and coords[e][1] == (f[1]+1):
+                    if f[2] == "#":
+                        counter += 1
+                if coords[e][0] == (f[0]-1) and coords[e][1] == f[1]:
+                    if f[2] == "#":
+                        counter += 1
+                if coords[e][0] == (f[0]+1) and coords[e][1] == f[1]:
+                    if f[2] == "#":
+                        counter += 1
+                if counter == 3:
+                    temp = (coords[e][0], coords[e][1], "#")
+                    coords[e] = temp
+                    switch = True
+        elif coords[e][2].isupper():
+            for f in coords:
+                if coords[e][0] == f[0] and coords[e][1] == (f[1]-1):
+                    if f[2] == "#":
+                        counter += 1
+                if coords[e][0] == f[0] and coords[e][1] == (f[1]+1):
+                    if f[2] == "#":
+                        counter += 1
+                if coords[e][0] == (f[0]-1) and coords[e][1] == f[1]:
+                    if f[2] == "#":
+                        counter += 1
+                if coords[e][0] == (f[0]+1) and coords[e][1] == f[1]:
+                    if f[2] == "#":
+                        counter += 1
+                if counter == 3:
+                    temp = (coords[e][0], coords[e][1], "#")
+                    coords[e] = temp
+                    switch = True
+        e+=1
+    if switch == True:
+        visible()
+        makewalls()
+                
+def visible():
+    visual = ""
+    e=0
+    while e < len(coords):
+        visual += coords[e][2]
+        e+=1
+    print(visual)
+    print("")
+                
+def makecoords():
+    global coords
+    h = open("C:/Projecten/d18.txt")
+    lines = h.readlines()
+    a=0
+    b=0
+    maxlen = 0
+    for p in lines:
+        if len(p) > maxlen:
+            maxlen = len(p)
+    e=0  
+    while e < len(lines):
+        if len(lines[e]) < maxlen:
+            templine = maxlen - len(lines[e])
+            lines[e] = lines[e] + (templine * " ")
+        a=0
+        for f in lines[e]:
+            temp = (a, b, f)
+            coords.append(temp)
+            a+=1
+        b+=1
+        e+=1
+
+
+def findlengthcrossroads():
+    global coords
+    global crossroads
+    global portals
+    global steps
+    global pastcoords
+    global paststeps
+    global portallength
+    global pastportalcoords
+    for e in coords:
+        if e[2] == "@":
+            f = 0
+            while f < len(coords):
+                if e[0] == coords[f][0] and e[1] == (coords[f][1]-1) and coords[f][2] == ".":                  
+                    if coords[f] not in pastportalcoords:
+                        pastcoords.append(e[:])
+                        paststeps.append(steps)
+                        portallength.append(walk(e[:], 0))
+                        pastportalcoords.append(coords[f])
+                        steps = 0
+                        pastcoords.clear()
+                        paststeps.clear()
+                        pastportals.clear()
+                if e[0] == coords[f][0] and e[1] == (coords[f][1]+1) and coords[f][2] == ".":
+                    if coords[f] not in pastportalcoords:
+                        pastcoords.append(e[:])
+                        paststeps.append(steps)
+                        portallength.append(walk(e[:], 0))
+                        pastportalcoords.append(coords[f])
+                        steps = 0
+                        pastcoords.clear()
+                        paststeps.clear()
+                        pastportals.clear()
+                if e[0] == (coords[f][0]-1) and e[1] == coords[f][1] and coords[f][2] == ".":
+                    if coords[f] not in pastportalcoords:
+                        pastcoords.append(e[:])
+                        paststeps.append(steps)
+                        portallength.append(walk(e[:], 0))
+                        pastportalcoords.append(coords[f])
+                        steps = 0
+                        pastcoords.clear()
+                        paststeps.clear()
+                        pastportals.clear()
+                if e[0] == (coords[f][0]+1) and e[1] == coords[f][1] and coords[f][2] == ".":
+                    if coords[f] not in pastportalcoords:
+                        pastcoords.append(e[:])
+                        paststeps.append(steps)
+                        portallength.append(walk(e[:], 0))
+                        pastportalcoords.append(coords[f])
+                        steps = 0
+                        pastcoords.clear()
+                        paststeps.clear()
+                        pastportals.clear()
+                    
+                f+=1
+                
+    print(portallength)
+                    
+    
+    
+def walk(globalcrossroad=0, num=1):
+    global coords
+    global crossroads
+    global portals
+    global steps
+    global pastcoords
+    global paststeps
+    global pastportals
+    global portallength
+    global startend
+    global pastportalcoords
+    global levelsdeep
+    e = num
+    print(pastcoords)
+    print(paststeps)
+    letters = ""
+    try:
+        while e < len(pastcoords):
+            if paststeps[e] >= 0:
+                f = 0
+                while f < len(coords):
+                    if coords[f] not in pastcoords and coords[f] not in pastportals and coords[f] not in pastportalcoords:
+                        if coords[f][0] == pastcoords[e][0] and (coords[f][1]-1) == pastcoords[e][1]:
+                            if coords[f][2] == ".":
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                f = len(coords)
+                            elif coords[f][2] == "@":
+                                pastportalcoords.append(pastcoords[e])
+                                steps +=  1
+                                temp = (globalcrossroad, coords[f], steps, letters)
+                                levelsdeep = 0
+                                return temp   
+                            elif coords[f][2].isalpha():
+                                letters += coords[f][2]
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                if checkwalls(coords[f]) == True:
+                                    temp = (globalcrossroad, coords[f], steps, letters)
+                                    return temp
+                            
+                        elif coords[f][0] == pastcoords[e][0] and (coords[f][1]+1) == pastcoords[e][1]:
+                            if coords[f][2] == ".":
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                f = len(coords)
+                            elif coords[f][2] == "@":
+                                pastportalcoords.append(pastcoords[e])
+                                steps +=  1
+                                temp = (globalcrossroad, coords[f], steps, letters)
+                                levelsdeep = 0
+                                return temp
+                            elif coords[f][2].isalpha():
+                                letters += coords[f][2]
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                if checkwalls(coords[f]) == True:
+                                    temp = (globalcrossroad, coords[f], steps, letters)
+                                    return temp
+                               
+                                    
+                        elif (coords[f][0]-1) == pastcoords[e][0] and coords[f][1] == pastcoords[e][1]:
+                            if coords[f][2] == ".":
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                f = len(coords)
+                            elif coords[f][2] == "@":
+                                pastportalcoords.append(pastcoords[e])
+                                steps +=  1
+                                temp = (globalcrossroad, coords[f], steps, letters)
+                                levelsdeep = 0
+                                return temp
+                            elif coords[f][2].isalpha():
+                                letters += coords[f][2]
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                if checkwalls(coords[f]) == True:
+                                    temp = (globalcrossroad, coords[f], steps, letters)
+                                    return temp
+                           
+                                    
+                        elif (coords[f][0]+1) == pastcoords[e][0] and coords[f][1] == pastcoords[e][1]:
+                            if coords[f][2] == ".":
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                f = len(coords)
+                            elif coords[f][2] == "@":
+                                pastportalcoords.append(pastcoords[e])
+                                steps +=  1
+                                temp = (globalcrossroad, coords[f], steps, letters)
+                                levelsdeep = 0
+                                return temp
+                            elif coords[f][2].isalpha():
+                                letters += coords[f][2]
+                                pastcoords.append(coords[f])
+                                steps += 1
+                                paststeps.append(steps)
+                                if checkwalls(coords[f]) == True:
+                                    temp = (globalcrossroad, coords[f], steps, letters)
+                                    return temp
+                            
+                    f+=1
+            print(pastcoords[e])
+            print(paststeps[e])
+
+            e+=1
+    except Exception as o:
+        print(o)
+        sleep(1000)
+
+                        
+
+from time import sleep
+levelsdeep = 0
+steps = 0
+startend = []
+portallength = []
+coords = []
+crossroads = []
+portals = []
+pastcoords = []
+paststeps = []
+pastportals = []
+pastportalcoords = []
+
+makecoords()
+makewalls()
+makecrossroads()
+visible()
+findlengthcrossroads()
+
+    
+
+sleep(1000)
+    
+
+                                 
+
+[ ((53, 41, '@'), (73, 69, '@'), 256, 'yniAp')
+ ((41, 17, '@'), (59, 1, 'q'), 114, 'Yq')
+ ((79, 49, '@'), (69, 41, 'j'), 54, 'tj')
+ ((1, 33, '@'), (7, 5, 'f'), 126, 'Jf')
+ ((41, 17, '@'), (77, 9, 'a'), 180, 'NIFa')
+ ((1, 33, '@'), (39, 39, '@'), 104, 'TW')
+ ((1, 33, '@'), (1, 39, 'o'), 10, 'o')
+ ((57, 37, '@'), (51, 33, 'r'), 10, 'r')
+ ((57, 37, '@'), (75, 27, 's'), 120, 'ws')
+ ((39, 39, '@'), (29, 37, 'c'), 16, 'c')
+ ((53, 41, '@'), (79, 49, '@'), 54, 'C')
+ ((73, 69, '@'), (75, 67, 'g'), 4, 'g')
+ ((1, 49, '@'), (39, 65, '@'), 254, 'GPR')
+ ((65, 63, '@'), (65, 59, 'k'), 4, 'k')
+ ((65, 63, '@'), (73, 69, '@'), 30, 'x')
+ ((1, 49, '@'), (3, 69, 'z'), 74, 'XKDHz')
+ ((1, 49, '@'), (21, 65, 'u'), 136, 'mvEu')
+ ((65, 63, '@'), (57, 69, 'e'), 102, 'dhZMVe')
+ ((79, 49, '@'), (75, 53, 'b'), 8, 'b')
+ ((39, 65, '@'), (37, 73, 'l'), 14, 'l')
+ ((41, 17, '@'), (49, 39, '@'), 50, '')
+ ((39, 39, '@'), (41, 39, '@'), 2, '')
+ ((39, 39, '@'), (39, 41, '@'), 2, '')
+ ((41, 39, '@'), (49, 39, '@'), 12, '')
+ ((41, 39, '@'), (41, 41, '@'), 2, '')
+ ((39, 41, '@'), (41, 41, '@'), 2, '')
+ ((39, 41, '@'), (39, 65, '@'), 32, '')
+ ((41, 41, '@'), (53, 41, '@'), 16, '')
+ ((57, 37, '@'), (49, 39, '@'), 10, '')]
+ 
+ manually went through the maze counting each distance by checking about results.
+ #5102
+
+#################################################################################
+#...#########################################...###.....###q#############...#...#
+#.#.#########################################.#.###.###Y###.#############I#.#.#.#
+#.#.#####################################.....#.....###.....#########...#.#...#.#
+#.#.#####################################.###########################N#.#.#####.#
+#.#....f#################################...#####...#######.....###...#.#...#...#
+#.#########################################.#####.#.#######.###.###.###.###.#.###
+#.....###################################...#...#.#.#######.###.....###.....#.F.#
+#####.###################################.###.#.#.#.#######.###################.#
+#...#.###################################...#.#.#.#.......#.#################a..#
+#.#.#.#####################################.#.#.#.#######.#.#####################
+#.#...#####################################...#.#.#####...#.#####################
+#.#############################################.#.#####.###.#####################
+#...#####################################.....#...#...#.###.........#############
+###.#####################################.###.#####.#.#.###########.#############
+#...#.....###############################.###...#...#...#...#.......#############
+#.###.###.###############################.#####.#.#######.#.#.###################
+#.###...#.###############################@..###...#######.#...###################
+#.#####.#.###############################.#.#############.#######################
+#.......#...#############################.#.....#...#####...#####################
+###########.#############################.#####.#.#.#######.#####################
+#####...###.......#######################...###...#.#######.###############...###
+#####.#.#########.#########################.#######.#######.###############.#.###
+###...#.....#####.#########################.......#...#####.###############.#...#
+###.#######.#####.###############################.###.#####.###############.###.#
+###.###.....#####.#########################...#...###.#####.#############...###.#
+###.###.#########.#########################.#.#.#####.#####.#############.#####.#
+#...###.J.#.......#########.....#########...#...#.....#####.###########...#s..#.#
+#.#######.#.###############.###.#########.#######.#########.###########.#####.#.#
+#.#.....#...###########...#.###.#########...###...#########.#########...#.....#.#
+#.#T###.###############.#.#.###.###########.###.###########.#########.###.#####.#
+#.#.#...#############...#...#...###########.###.#.......###...#.......###...#..w#
+#.#.#.###############.#######.#############.###.#.#####.#####.#.###########.#.###
+#@..#.###############...###...#############.###.#.#r###.....#.#.#...#.......#.###
+#.###.#################.###.###############.###.#.#.#######.#.#.#.#.#.#######.###
+#...#.#################.###.#.......#######...#...#.......#.#.#.#.#.#.#####...###
+###.#.#################.###.#.#####.#########.###########.#.#.#.#.#.#.#####.#####
+#...#.#########...W...#.###.#c#...#.....#...#.....###....@#...#...#...#...#...###
+#.###.#########.#####.#.###.###.#.#####.#.#.#####.###.###.#############.#.###.###
+#o###...........#####...###.....#......@.@#......@....###...............#.....###
+#######################################.%.#######################################
+#...#.....#########.....#####.........#@.@......###..@..#####........j###########
+#.#.#P###.#########.###.#####.#######.#.#######.###.#.#.#####.###################
+#.#...###...#######...#.#####.#######.#.#######.....#.#...###.#####..t..#########
+#G#########.#########.#.#####.#######.#.#############.###C###.#####.###.#########
+#.#########.#########.#.###...#######.#.###########...###...#.###...#...#####...#
+#.#########.#########.#.###.#########.#.###########.#######.#.###.###.#######.#.#
+#.#########.#########.#...#.....#####.#.#######...#.#######.#.....###.#.......#.#
+#.#########.#########.###.#####.#####.#.#######.#.#.#######.#########.#.#######.#
+#@......#...#########.###.....#...#...#.#####...#.#.#######.###...###...#......@#
+#.#####.#.###########.#######.###.#.###.#####.###.#.#######.###.#.#######.#####.#
+#.#...#.#.....#######.#######.....#.#...###...###.#.....#...#...#.........#.....#
+#.#.#.#.#####.#######.#############.#.#####.#####.#####.#.###.#############.#####
+#...#.#.###...#######.....#####.....#.#####.#.....#####.#.#...#...#########b#####
+#####.#.###.#############.#####.#####.#####.#.#########.#.#.###.#.###############
+#####.#...#...###.........#####...#...#####.#...#######.#...#...#..d#############
+#####.###.###.###.###############.#.#######.###.#######.#####.#####.#############
+###.X.###.#...###...#############.#...###...###...#.....#####.#####.#############
+###.#####.#.#######.#############.###.###.#######.#.#########.#####.#############
+#...#####.#.#######.#############.###.###.###...#.#.#########...#k#.......#######
+#.#######.#.#######.#############.###.###.###.#.#.#.###########.#.#######.#######
+#.#...###.#.#####...#########...#.###...#.#...#.#...###########.#.#####...#######
+#.#.#.###.#.#####.###########.#.#.#####.#.#.###.###############.#.#####.#########
+#.#.#.....#.###...###########.#...#...#.#...###...#########....h#@......#.......#
+#.#.#######.###.#############.#####.#.#.#########.#########.#####.#######.#####.#
+#.#.#...###...#.#####u......#...###.#.R@#.......#.#######...#...#........x#####.#
+#.#.#.#.#####.#.###########.###.###.###.#.#####.#.#######.###.#Z###############.#
+#.#...#...###...#####...#.E.###.###.#...#...#...#...#####.....#.#.....###..g###.#
+#K#######.###########.#.#.#####.###.#.#####.#.#####.###########.#.###.###.#####.#
+#.#z....#.#########..v#.#...###.###.#...#...#.....#.#####e#####.#.###...#@......#
+#.#####.#.#########.###.###.###.###.###.#.#######.#.#####.#####.#.#####.#.#######
+#.###...#.......#...###.....###.###.#...#...#####...#####...###...#...M.#.......#
+#.###H#########.#.#############.###.#.#####.###############V#######.###########.#
+#...#.###...###.#.....#######...#...#l#####...#.........###.........#########...#
+###.#.###.#.###.#####.#######.###.###########.#.#######.#####################.###
+###.#.....#.#...#####.###...#...#.#######.....#.#####...#.....###.........###..p#
+###.#######.#.#######.###.#.###.#.#######.#####.#####.###.###.###.#######.#####.#
+###...D.....#.#######m....#.#...#...#####y#####.#####n..#...#i###.#.......###...#
+#############.#############.#.#####.#####.#####.#######.###.#.###.#.#########.###
+#############...............#.......#####.......#######.....#.....#.......A...###
+#################################################################################
+
