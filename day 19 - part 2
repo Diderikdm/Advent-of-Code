@@ -129,12 +129,12 @@ print(occs)
 e = 0
 while e < len(grid2):
     f = 0
-    while f < len(grid2[e]):
+    while f < len(grid2[0]):
         if grid2[e][f] == 1:
             if grid2[e][f+99] == 1:
                 if grid2[e+99][f] == 1:
                     print(f*10000+e)
-                    f = len(grid2[e])
+                    f = len(grid2[0])
                     e = len(grid2)
         f+=1
     e+=1
