@@ -76,56 +76,35 @@ def intcode(input1, input2):
         elif oooxx == 99:
             break    
         e += steps
-
     return output
 
 grid = []
 grid2 = []
-coords = []
 p = 0
-go = False
 while p < 2000:
     q = 0
     print(p)
     while q < 2000:
         if p == 0 and q == 0:
-            input1 = q
-            input2 = p
-            temp = (q, p)
             grid.append(intcode(q, p)[0])
-            coords.append(temp)
         else:
             if (q < 50 and p < 50) or (q == 0 and grid2[p-1][0] == 1) or (p > 0 and grid2[p-1][q] == 1) or (q > 0 and grid[-1] == 1):
-                input1 = q
-                input2 = p
-                temp = (q, p)
                 grid.append(intcode(q, p)[0])
-                coords.append(temp)
             else:
-                input1 = q
-                input2 = p
-                temp = (q, p)
                 grid.append(0)
-                coords.append(temp)
         q+=1
     grid2.append(grid[:])
     grid.clear()
     p+=1
 
 string = ''
-occs = 0
 for o in grid2:
     for r in o:
         string += str(r)
-        if r == 1:
-            occs += 1
     string += "\n"
 
 print(string)
         
-
-print(occs)
-
 e = 0
 while e < len(grid2):
     f = 0
