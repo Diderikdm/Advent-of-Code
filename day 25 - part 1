@@ -1,0 +1,99 @@
+def mod1(oxxoo, nummers, position, relativebase):
+    if oxxoo == 0:
+        return int(nummers[int(nummers[position])])
+    elif oxxoo == 1:
+        return int(nummers[position])
+    elif oxxoo == 2:
+        return int(nummers[(int(nummers[position]))+relativebase])
+    
+def mod2(xoooo, nummers, position, relativebase):
+    if xoooo == 0:
+        return int(nummers[position])
+    elif xoooo == 1:
+        return int(position)
+    elif xoooo == 2:
+        return int(int(nummers[position]) + relativebase)
+
+h = open("C:/Projecten/d25.txt")
+nummers = h.read().split(",")
+for e in range(2000):
+    nummers.append("0")
+
+output = []
+e = 0
+relativebase = 0
+counter = 0
+past = ''
+while e < len(nummers):
+    steps = 4
+    if int(nummers[e]) < 99999:
+        zeros = 5 - len(str(nummers[e]))
+        nummers[e] = (zeros * "0" + str(nummers[e]))
+    xoooo = int(nummers[e][0])
+    oxooo = int(nummers[e][1])
+    ooxoo = int(nummers[e][2])
+    oooxx = int(nummers[e][3:])
+    if xoooo < 3 and oxooo < 3 and ooxoo < 3:
+        if oooxx == 1:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 2:
+            nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) * mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 3:
+            steps = 2
+            if ooxoo != 1:
+                if counter == 0:
+                    for z in output:
+                        print(z, end='')
+                    temp = input()
+                    past += temp + "-"
+                if counter < len(temp):
+                    nummers[mod2(ooxoo, nummers, e+1, relativebase)] = ord(temp[counter])
+                    counter += 1
+                elif counter == len(temp):
+                    nummers[mod2(ooxoo, nummers, e+1, relativebase)] = 10
+                    counter = 0
+                    print(past)
+        elif oooxx == 4:
+            steps = 2
+            print(chr((int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))), end='')
+        elif oooxx == 5:
+            steps = 3
+            if mod1(ooxoo, nummers, e+1, relativebase) != 0:
+                steps = 0
+                e = mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 6:
+            steps = 3
+            if mod1(ooxoo, nummers, e+1, relativebase) == 0:
+                steps = 0
+                e = mod1(oxooo, nummers, e+2, relativebase)
+        elif oooxx == 7:
+            if mod1(ooxoo, nummers, e+1, relativebase) < mod1(oxooo, nummers, e+2, relativebase):
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+            else:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+        elif oooxx == 8:
+            if mod1(ooxoo, nummers, e+1, relativebase) == mod1(oxooo, nummers, e+2, relativebase):
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+            else:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+        elif oooxx == 9:
+            steps = 2
+            relativebase += mod1(ooxoo, nummers, e+1, relativebase)
+        elif oooxx == 99:
+            break   
+    e += steps
+
+print(output)
+
+#east-take antenna-west-north-take weather machine-north-take klein bottle-east-take spool of cat6-east-south-take mug-north-north-west-north-take cake-south-west-east-east-east-north-north-take tambourine-south-south-south-take shell-south-east-south-north-west-north-inv-west-south-west-south-north-east-south-north-west-west-south-north-east-south-south-east-inv-drop weather machine-east-inv-drop spool of cat6-east-take spool of cat6-inv-drop tambourine-east-drop mug-east-drop shell-east-inv-drop cake-east-drop klein bottle-east-take shell-east-drop shell-inv-take mug-east-drop antenna-take tambourine-east-take cake-east-take shell-east-take klein bottle-east-take weather machine-east-take antenna-east-drop spool of cat6-east-take spool of cat6-drop weather machine-east-take weather machine-drop tambourine-west-east-drop weather machine-east-drop cake-east-drop shell-east-drop mug-east-inv-drop klein bottle-east-take shell-take klein-inv-east-take weather machine-east-drop shell-east-take mug-east-
+== Pressure-Sensitive Floor ==
+Analyzing...
+
+Doors here lead:
+- west
+
+A loud, robotic voice says "Analysis complete! You may proceed." and you enter the cockpit.
+Santa notices your small droid, looks puzzled for a moment, realizes what has happened, and radios your ship directly.
+"Oh, hello! You should be able to get in by typing 805307408 on the keypad at the main airlock."
+
+
