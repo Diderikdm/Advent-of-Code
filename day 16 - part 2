@@ -7,10 +7,8 @@ for a in range(100):
     while e < len(i):
         if e == 0:
             total = 0
-            f = 0
-            while f < len(i):
-                total += int(i[f])
-                f+=1
+            for f in i:
+                total += int(f)
         elif e > 0:
             total -= int(i[e-1])
         string += str(total)[-1]
