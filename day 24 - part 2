@@ -1,0 +1,627 @@
+def printing(coords):
+    string = ""
+    totalbugs = 0
+    print(len(coords))
+    for e in coords:
+        counter = 0
+        for f in e:
+            string += f[0]
+            if f[0] == "#":
+                totalbugs += 1
+            counter += 1
+            if counter == 5:
+                string+= "\n"
+                counter = 0
+        string+="\n"
+    print(string)
+    print(totalbugs)
+    print("##################################################")
+
+
+i = open("C:/Projecten/d24.txt", "r")
+data = i.read().splitlines()
+ast = []
+x = 0
+y = 0
+coor = 0
+coord = []
+
+lijst = []
+
+for e in data:
+    for f in range(len(data[0])):
+        if x < 10:
+            if y < 10:
+                ast.append(str(e[f]) + "0" + str(x) + "," + "0" + str(y))
+            elif y > 9:
+                ast.append(str(e[f]) + "0" + str(x) + "," + str(y))
+        elif y < 10:
+            ast.append(str(e[f]) + str(x) + "," + "0" + str(y))
+        else:
+            ast.append(str(e[f]) + str(x) + "," + str(y))
+        x += 1
+    x = 0
+    y += 1
+
+ast[12] = "?02,02"
+
+dimensional = []
+for e in range(102):
+    dimensional.append(['.00,00', '.01,00', '.02,00', '.03,00', '.04,00', '.00,01', '.01,01', '.02,01', '.03,01', '.04,01', '.00,02', '.01,02', '?02,02', '.03,02', '.04,02', '.00,03', '.01,03', '.02,03', '.03,03', '.04,03', '.00,04', '.01,04', '.02,04', '.03,04', '.04,04'])
+
+dimensional.append(ast)
+
+for e in range(102):
+    dimensional.append(['.00,00', '.01,00', '.02,00', '.03,00', '.04,00', '.00,01', '.01,01', '.02,01', '.03,01', '.04,01', '.00,02', '.01,02', '?02,02', '.03,02', '.04,02', '.00,03', '.01,03', '.02,03', '.03,03', '.04,03', '.00,04', '.01,04', '.02,04', '.03,04', '.04,04'])
+
+
+
+
+coords = []
+for a in dimensional:  
+    for e in a:
+        if e[0] == "#":
+            coor = ("#", int(e[1:-3]) , int(e[4:]))
+            coord.append(coor)
+        elif e[0] == ".":
+            coor = (".", int(e[1:-3]) , int(e[4:]))
+            coord.append(coor)
+        elif e[0] == "?":
+            coor = ("?", int(e[1:-3]) , int(e[4:]))
+            coord.append(coor)
+    coords.append(coord[:])
+    coord.clear()
+
+printing(coords)    
+print(len(coords))
+
+dimcoord = []
+dimcoords = []
+for a in range(200):
+    print(a)
+    e=1
+    while e < len(coords)-1:
+        f = 0
+        while f < len(coords[e]):
+            counter = 0
+            #left-upper corner
+            if coords[e][f][0] == "." and coords[e][f][1] == 0 and coords[e][f][2] == 0:
+                if coords[e-1][7][0] == "#":
+                    counter +=1
+                if coords[e-1][11][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 0 and coords[e][f][2] == 0:
+                if coords[e-1][7][0] == "#":
+                    counter +=1
+                if coords[e-1][11][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #right-upper corner      
+            elif coords[e][f][0] == "." and coords[e][f][1] == 4 and coords[e][f][2] == 0:
+                if coords[e-1][7][0] == "#":
+                    counter +=1
+                if coords[e-1][13][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 4 and coords[e][f][2] == 0:
+                if coords[e-1][7][0] == "#":
+                    counter +=1
+                if coords[e-1][13][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #left-lower corner
+            elif coords[e][f][0] == "." and coords[e][f][1] == 0 and coords[e][f][2] == 4:
+                if coords[e-1][17][0] == "#":
+                    counter +=1
+                if coords[e-1][11][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 0 and coords[e][f][2] == 4:
+                if coords[e-1][17][0] == "#":
+                    counter +=1
+                if coords[e-1][11][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #right-lower corner
+            elif coords[e][f][0] == "." and coords[e][f][1] == 4 and coords[e][f][2] == 4:
+                if coords[e-1][17][0] == "#":
+                    counter +=1
+                if coords[e-1][13][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 4 and coords[e][f][2] == 4:
+                if coords[e-1][17][0] == "#":
+                    counter +=1
+                if coords[e-1][13][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #upper-middle 3
+            elif coords[e][f][0] == "." and 0 < coords[e][f][1] < 4 and coords[e][f][2] == 0:
+                if coords[e-1][7][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and 0 < coords[e][f][1] < 4 and coords[e][f][2] == 0:
+                if coords[e-1][7][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #left-middle 3
+            elif coords[e][f][0] == "." and coords[e][f][1] == 0 and 0 < coords[e][f][2] < 4:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e-1][11][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 0 and 0 < coords[e][f][2] < 4:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e-1][11][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #right-middle 3
+            elif coords[e][f][0] == "." and coords[e][f][1] == 4 and 0 < coords[e][f][2] < 4:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e-1][13][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 4 and 0 < coords[e][f][2] < 4:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e-1][13][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #lower-middle 3
+            elif coords[e][f][0] == "." and 0 < coords[e][f][1] < 4 and coords[e][f][2] == 4:
+                if coords[e-1][17][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and 0 < coords[e][f][1] < 4 and coords[e][f][2] == 4:
+                if coords[e-1][17][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #inner-upper
+            elif coords[e][f][0] == "." and coords[e][f][1] == 2 and coords[e][f][2] == 1:
+                if coords[e+1][0][0] == "#":
+                    counter +=1
+                if coords[e+1][1][0] == "#":
+                    counter +=1
+                if coords[e+1][2][0] == "#":
+                    counter +=1
+                if coords[e+1][3][0] == "#":
+                    counter +=1
+                if coords[e+1][4][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 2 and coords[e][f][2] == 1:
+                if coords[e+1][0][0] == "#":
+                    counter +=1
+                if coords[e+1][1][0] == "#":
+                    counter +=1
+                if coords[e+1][2][0] == "#":
+                    counter +=1
+                if coords[e+1][3][0] == "#":
+                    counter +=1
+                if coords[e+1][4][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #inner left
+            elif coords[e][f][0] == "." and coords[e][f][1] == 1 and coords[e][f][2] == 2:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e+1][0][0] == "#":
+                    counter +=1
+                if coords[e+1][5][0] == "#":
+                    counter +=1
+                if coords[e+1][10][0] == "#":
+                    counter +=1
+                if coords[e+1][15][0] == "#":
+                    counter +=1
+                if coords[e+1][20][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 1 and coords[e][f][2] == 2:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e+1][0][0] == "#":
+                    counter +=1
+                if coords[e+1][5][0] == "#":
+                    counter +=1
+                if coords[e+1][10][0] == "#":
+                    counter +=1
+                if coords[e+1][15][0] == "#":
+                    counter +=1
+                if coords[e+1][20][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #inner right
+            elif coords[e][f][0] == "." and coords[e][f][1] == 3 and coords[e][f][2] == 2:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e+1][4][0] == "#":
+                    counter +=1
+                if coords[e+1][9][0] == "#":
+                    counter +=1
+                if coords[e+1][14][0] == "#":
+                    counter +=1
+                if coords[e+1][19][0] == "#":
+                    counter +=1
+                if coords[e+1][24][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 3 and coords[e][f][2] == 2:
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if coords[e+1][4][0] == "#":
+                    counter +=1
+                if coords[e+1][9][0] == "#":
+                    counter +=1
+                if coords[e+1][14][0] == "#":
+                    counter +=1
+                if coords[e+1][19][0] == "#":
+                    counter +=1
+                if coords[e+1][24][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #inner-bottom
+            elif coords[e][f][0] == "." and coords[e][f][1] == 2 and coords[e][f][2] == 3:
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e+1][20][0] == "#":
+                    counter +=1
+                if coords[e+1][21][0] == "#":
+                    counter +=1
+                if coords[e+1][22][0] == "#":
+                    counter +=1
+                if coords[e+1][23][0] == "#":
+                    counter +=1
+                if coords[e+1][24][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 2 and coords[e][f][2] == 3:
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e+1][20][0] == "#":
+                    counter +=1
+                if coords[e+1][21][0] == "#":
+                    counter +=1
+                if coords[e+1][22][0] == "#":
+                    counter +=1
+                if coords[e+1][23][0] == "#":
+                    counter +=1
+                if coords[e+1][24][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #remaining corners
+            elif coords[e][f][0] == "." and coords[e][f][1] == 1 and coords[e][f][2] == 1:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 1 and coords[e][f][2] == 1:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            elif coords[e][f][0] == "." and coords[e][f][1] == 3 and coords[e][f][2] == 1:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 3 and coords[e][f][2] == 1:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            elif coords[e][f][0] == "." and coords[e][f][1] == 1 and coords[e][f][2] == 3:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 1 and coords[e][f][2] == 3:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            elif coords[e][f][0] == "." and coords[e][f][1] == 3 and coords[e][f][2] == 3:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if 0 < counter < 3:
+                    temp = ("#", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+                else:
+                    dimcoord.append(coords[e][f][:])
+            elif coords[e][f][0] == "#" and coords[e][f][1] == 3 and coords[e][f][2] == 3:
+                if coords[e][f+5][0] == "#":
+                    counter +=1
+                if coords[e][f-1][0] == "#":
+                    counter +=1
+                if coords[e][f+1][0] == "#":
+                    counter +=1
+                if coords[e][f-5][0] == "#":
+                    counter +=1
+                if counter == 1:
+                    dimcoord.append(coords[e][f][:])
+                else:
+                    temp = (".", coords[e][f][1], coords[e][f][2])
+                    dimcoord.append(temp)
+            #middle
+            elif coords[e][f][0] == "?" and coords[e][f][1] == 2 and coords[e][f][2] == 2:
+                dimcoord.append(coords[e][f][:])
+            f+=1
+        dimcoords.append(dimcoord[:])
+        dimcoord.clear()
+        e+=1
+    coords.clear()
+    coords.append(dimensional[0])
+    for g in dimcoords:
+        coords.append(g)
+    coords.append(dimensional[0])
+    dimcoords.clear()
+
+printing(coords)
+#1977
