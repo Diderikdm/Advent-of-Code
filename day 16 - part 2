@@ -1,5 +1,5 @@
-i = open("C:/Projecten/d16.txt").read()*10000
-i = (i[int(i[0:7]):])
+h = open("C:/Projecten/d16.txt").read()*10000
+i = (h[int(h[0:7]):])
 for a in range(100):
     print(a)
     string = '' 
