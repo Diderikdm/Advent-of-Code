@@ -1,0 +1,29 @@
+h = open("C:/Projecten/d16.txt")
+inp = h.read()
+temp = int(inp[0:7])
+inp = inp * 10000
+inp = (inp[temp:])
+
+for a in range(100):
+    print(a)
+    string = '' 
+    e = 0
+    while e < len(inp):
+        if e == 0:
+            totaal = 0
+        f = e
+        while f < len(inp) and f >= e:
+            if e == 0:
+                totaal += int(inp[f])
+            else:
+                f = len(inp)
+            f += 1
+        if e > 0:
+            totaal -= int(inp[e-1])
+        string += str(totaal)[-1]
+        e+=1
+    inp = string
+
+print(inp[0:8])
+            
+#23752579
