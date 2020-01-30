@@ -183,8 +183,8 @@ while a != 2:
             ycoords.append(y)
             print(y)
             if len(ycoords) > 2 and ycoords[-1] == y and ycoords[-2] and ycoords[-3] == y:
-                print(ycoords)
-                sleep(1000)
+                print([ycoords[-1]])
+                a=2
                 
             
         u+=1
