@@ -1,0 +1,198 @@
+def mod1(oxxoo, nummers, position, relativebase):
+    if oxxoo == 0:
+        return int(nummers[int(nummers[position])])
+    elif oxxoo == 1:
+        return int(nummers[position])
+    elif oxxoo == 2:
+        return int(nummers[(int(nummers[position]))+relativebase])
+    
+def mod2(xoooo, nummers, position, relativebase):
+    if xoooo == 0:
+        return int(nummers[position])
+    elif xoooo == 1:
+        return int(position)
+    elif xoooo == 2:
+        return int(int(nummers[position]) + relativebase)
+
+def intcode(nummers, amount, ID, queued, firsttime):
+    global globalqueue
+    global position
+    if len(queued) > 0:
+        temp = queued[0]
+        eerste = temp[0]
+        tweede = temp[1]
+    output = []
+    e = 0
+    relativebase = 0
+    teller = 0
+    firstvalue = True
+    if len(position) == 50:
+        e = position[ID][0]
+        relativebase = position[ID][1]
+    while e < len(nummers):
+        steps = 4
+        if int(nummers[e]) < 99999 and int(nummers[e]) > 0:
+            zeros = 5 - len(str(nummers[e]))
+            nummers[e] = (zeros * "0" + str(nummers[e]))
+        else:
+            e+=4
+            continue
+        xoooo = int(nummers[e][0])
+        oxooo = int(nummers[e][1])
+        ooxoo = int(nummers[e][2])
+        oooxx = int(nummers[e][3:])
+        if xoooo < 3 and oxooo < 3 and ooxoo < 3:
+            if oooxx == 1:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) + mod1(oxooo, nummers, e+2, relativebase)
+            elif oooxx == 2:
+                nummers[mod2(xoooo, nummers, e+3, relativebase)] = mod1(ooxoo, nummers, e+1, relativebase) * mod1(oxooo, nummers, e+2, relativebase)
+            elif oooxx == 3:
+                steps = 2
+                if ooxoo != 1:
+                    if teller == amount:
+
+                        if len(position) < 50:
+                            temp2 = (e, relativebase)
+                            position.append(temp2)
+                        elif len(position) == 50:
+                            temp2 = (e, relativebase)
+                            position[ID] = temp2
+                        temp = (ID, output)
+                        globalqueue.append(temp)
+                        return nummers
+                    teller += 1
+                    if firsttime == True:
+                        nummers[mod2(ooxoo, nummers, e+1, relativebase)] = str(ID)
+                    elif len(queued) == 0:
+                        nummers[mod2(ooxoo, nummers, e+1, relativebase)] = "-1"
+                    elif len(queued) > 0:
+                        if firstvalue == True:
+                            nummers[mod2(ooxoo, nummers, e+1, relativebase)] = str(eerste)
+                            firstvalue = False
+                        elif firstvalue == False:
+                            nummers[mod2(ooxoo, nummers, e+1, relativebase)] = str(tweede)
+                            
+            elif oooxx == 4:
+                steps = 2
+                output.append(int(nummers[mod2(ooxoo, nummers, e+1, relativebase)]))
+            elif oooxx == 5:
+                steps = 3
+                if mod1(ooxoo, nummers, e+1, relativebase) != 0:
+                    steps = 0
+                    e = mod1(oxooo, nummers, e+2, relativebase)
+            elif oooxx == 6:
+                steps = 3
+                if mod1(ooxoo, nummers, e+1, relativebase) == 0:
+                    steps = 0
+                    e = mod1(oxooo, nummers, e+2, relativebase)
+            elif oooxx == 7:
+                if mod1(ooxoo, nummers, e+1, relativebase) < mod1(oxooo, nummers, e+2, relativebase):
+                    nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+                else:
+                    nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+            elif oooxx == 8:
+                if mod1(ooxoo, nummers, e+1, relativebase) == mod1(oxooo, nummers, e+2, relativebase):
+                    nummers[mod2(xoooo, nummers, e+3, relativebase)] = 1
+                else:
+                    nummers[mod2(xoooo, nummers, e+3, relativebase)] = 0
+            elif oooxx == 9:
+                steps = 2
+                relativebase += mod1(ooxoo, nummers, e+1, relativebase)
+            elif oooxx == 99:
+                break   
+        e += steps
+
+from time import sleep
+h = open("C:/Projecten/d23.txt")
+nummers = h.read().split(",")
+for e in range(1000000):
+    nummers.append("0")
+position = []
+network = []
+queue = []
+globalqueue = []
+for e in range(50):
+    network.append(nummers[:])
+    temp = (e, [])
+    queue.append(temp)
+
+for e in range(50):
+    amount = 1
+    firsttime = True
+    network[e] = intcode(network[e], amount, e, queue[e][1], firsttime)[:]
+queue.clear()
+for e in globalqueue:
+    queue.append(e)
+globalqueue.clear()
+
+times = []
+firsttime = False
+a = 0
+outputs = []
+templist = []
+a=0
+queue2 = []
+uno = True
+NAS = 0
+ycoords = []
+while a != 2:
+    for e in range(50):
+        if len(queue[e][1]) == 0:
+            amount = 1
+            network[e] = intcode(network[e], amount, e, queue[e][1], firsttime)[:]
+        else:
+            amount = 2
+            network[e] = intcode(network[e], amount, e, queue[e][1], firsttime)[:]
+            temp = queue[e][1][1:]
+            temp = (queue[e][0], temp)
+            queue[e] = temp[:]
+    for e in globalqueue:
+        if len(e[1]) >= 0:
+            temp = e[1][:]
+            f = 0
+            while f < len(temp)-2:
+                temp2 = (temp[f], [temp[f+1], temp[f+2]])
+                if temp[f] > 49:
+                    NAS = (0, [[temp[f+1], temp[f+2]]])
+                outputs.append(temp2)
+                f+=3
+            f = 0
+    while f < len(globalqueue):
+        for g in outputs:
+            if g[0] == f:
+                templist.append(g[1][:])
+        temp = (f, templist[:])
+        templist.clear()
+        f+=1
+        queue2.append(temp)
+    u = 0
+    tel = 0
+    prev = False
+    while u < len(queue):
+        if len(queue[u][1]) == 0:
+            temp = (queue2[u])
+            queue[u] = temp[:]
+            tel += 1
+        elif len(queue[u][1]) > 0:
+            temp = queue[u][1] + queue2[u][1]
+            temp = (queue[u][0], temp)
+            queue[u] = temp[:]
+        if tel == 50 and uno == False and NAS != 0:
+            queue[0] = NAS
+            y = NAS[1][0][1]
+            ycoords.append(y)
+            print(y)
+            if len(ycoords) > 2 and ycoords[-1] == y and ycoords[-2] and ycoords[-3] == y:
+                print(ycoords)
+                sleep(1000)
+                
+            
+        u+=1
+            
+    outputs.clear()
+    globalqueue.clear()
+    queue2 = []
+    uno = False
+
+
+    
