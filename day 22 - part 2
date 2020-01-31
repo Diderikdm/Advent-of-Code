@@ -1,0 +1,18 @@
+#####################3
+DISCLAIMER: I did not solve this puzzle on my own. This puzzle required knowledge of modular arithmetics. I do not posess this kind of knowledge.
+This does feel bittersweet, as it is the last puzzle I needed for a full advent.
+Nonetheless, here is the code I used for the solution as I would not come up with this in a million years..:
+
+a, b, c, n, M = 1, 0 , 2020, 119315717514047, 101741582076661
+for l in open("C:/Projecten/d22.txt"):
+    if l == 'deal into new stack\n':
+        la, lb = -1, -1
+    elif l.startswith('deal with increment '):
+        la, lb = int(l[len('deal with increment '):]), 0
+    elif l.startswith('cut '):
+        la, lb = 1, -int(l[len('cut '):])
+    a, b = ((la * a) % n), ((la * b + lb) % n)
+def inv(a, n): return pow(a, n-2, n)
+Ma = (pow(a, M, n))
+Mb = b * (Ma - 1) * inv(a-1, n) % n
+print(((c - Mb) * inv(Ma, n)) % n)
