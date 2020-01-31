@@ -2,7 +2,7 @@
 DISCLAIMER: I did not solve this puzzle on my own. This puzzle required knowledge of modular arithmetics. I do not posess this kind of 
 knowledge, nor would I have come up with using something of it's kind. Having to look up the answer for this puzzle feels very bittersweet,
 as it is the last puzzle I needed for a full advent after completing everything by myself. Nonetheless, here is the code I used for the 
-solution I would not come up with..:
+solution I would not have come up with..:
 ####################
 
 a, b, c, n, M = 1, 0 , 2020, 119315717514047, 101741582076661
