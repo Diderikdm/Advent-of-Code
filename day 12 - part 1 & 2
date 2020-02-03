@@ -285,13 +285,14 @@ for e in range(len(stappen)):
             if e%2 == 0 and "z" not in what:
                 what.append("z")
                 zcycle = e
-combo_xz = xcycle
+
 combo_xy = xcycle
-while combo_xz%zcycle != 0:
-    combo_xz += xcycle
-    
 while combo_xy%ycycle != 0:
     combo_xy += xcycle
+
+combo_xz = xcycle
+while combo_xz%zcycle != 0:
+    combo_xz += xcycle
     
 combo_xyz = combo_xy
 while combo_xyz%combo_xz != 0:
