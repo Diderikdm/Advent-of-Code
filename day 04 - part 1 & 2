@@ -7,7 +7,7 @@ for e in range(130254, 678275):
             vals1.append(e)
         if (e[0] == e[1] and e[0] != e[2]) or (e[1] == e[2] and e[1] != e[3] and e[0] != e[2]) or (e[2] == e[3] and e[2] != e[4] and e[1] != e[3]) or (e[3] == e[4] and e[3] != e[5] and e[2] != e[4]) or (e[4] == e[5] and e[3] != e[5]):
             vals2.append(e)
-#part 1:
+#part 1: 2090
 print(len(vals1))
-#part 2:
+#part 2: 1419
 print(len(vals2))
