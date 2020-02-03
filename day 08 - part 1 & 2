@@ -44,7 +44,12 @@ waarde = waarde.replace("0", ".")
 waarde = waarde.replace("1", "#")
 
 #part 2:
-print(waarde)
+e = 0
+while e < len(waarde):
+    if e > 0 and e%25 == 0:
+        print("\n", end="")
+    print(waarde[e], end="")
+    e+=1
 #EHRUE
 ####.#..#.###..#..#.####.
 #....#..#.#..#.#..#.#....
