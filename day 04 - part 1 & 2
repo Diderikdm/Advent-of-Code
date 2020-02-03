@@ -1,21 +1,13 @@
-combis = []
 vals1 = []
 vals2 = []
-
 for e in range(130254, 678275):
-    combis.append(str(e))
-
-for e in combis:
+    e = str(e)
     if e[0] <= e[1] <= e[2] <= e[3] <= e[4] <= e[5]:
         if e[0] == e[1] or e[1] == e[2] or e[2] == e[3] or e[3] == e[4] or e[4] == e[5]:
             vals1.append(e)
-            if (e[0] == e[1] and e[0] != e[2]) or (e[1] == e[2] and e[1] != e[3] and e[0] != e[2]) or (e[2] == e[3] and e[2] != e[4] and e[1] != e[3]) or (e[3] == e[4] and e[3] != e[5] and e[2] != e[4]) or (e[4] == e[5] and e[3] != e[5]):
-                vals2.append(e)
+        if (e[0] == e[1] and e[0] != e[2]) or (e[1] == e[2] and e[1] != e[3] and e[0] != e[2]) or (e[2] == e[3] and e[2] != e[4] and e[1] != e[3]) or (e[3] == e[4] and e[3] != e[5] and e[2] != e[4]) or (e[4] == e[5] and e[3] != e[5]):
+            vals2.append(e)
 #part 1:
 print(len(vals1))
-#2090
-
 #part 2:
 print(len(vals2))
-#1419
-
