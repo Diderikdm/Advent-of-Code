@@ -1,3 +1,5 @@
+doubles = []
+
 Iposx = -5
 Iposy = 6
 Iposz = -11
@@ -62,7 +64,7 @@ stappen = []
 stappen.append(manen)
 teller = 0
 
-for e in range(1000):
+for e in range(300000):
     teller += 1
     if Iposx > Eposx:
         Ipostellerx -= 1
@@ -227,8 +229,9 @@ for e in range(1000):
     C = (Cpos, Cvel)
 
     manen = (I, E, G, C)
-    
+
     stappen.append(manen)
+        
 
     Ipostellerx = 0
     Ipostellery = 0
@@ -268,7 +271,6 @@ for e in range(0, 4):
 
 #part 1:
 print(energy)
-#13399
 
 what = []
 for e in range(len(stappen)):
@@ -285,7 +287,6 @@ for e in range(len(stappen)):
             if e%2 == 0 and "z" not in what:
                 what.append("z")
                 zcycle = e
-
 combo_xy = xcycle
 while combo_xy%ycycle != 0:
     combo_xy += xcycle
@@ -301,3 +302,10 @@ while combo_xyz%combo_xz != 0:
 #part 2:
 print(combo_xyz)
 #312992287193064
+        
+        
+            
+            
+
+
+
