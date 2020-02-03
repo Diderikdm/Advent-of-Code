@@ -2,18 +2,11 @@ i = open("C:/Projecten/d1.txt")
 acties = i.read().split()
 tot = 0
 totaal = 0
-
-
 #part 1:
 for a in acties:
     tot += int(int(a)/3)-2
-
-
-    
 print(tot)
 #3389778
-
-
 
 #part 2:
 for x in acties:
@@ -23,8 +16,6 @@ for x in acties:
         if  x <= 0:
             x = 0
         y += x
-        
     totaal += y
-
 print(totaal)
 #5081802
