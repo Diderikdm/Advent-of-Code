@@ -269,3 +269,32 @@ for e in range(0, 4):
 #part 1:
 print(energy)
 #13399
+
+what = []
+for e in range(len(stappen)):
+    if e > 0:
+        if stappen[e][0][0][0] == stappen[0][0][0][0] and stappen[e][1][0][0] == stappen[0][1][0][0] and stappen[e][2][0][0] == stappen[0][2][0][0] and stappen[e][3][0][0] == stappen[0][3][0][0]:
+            if e%2 == 0 and "x" not in what:
+                what.append("x")
+                xcycle = e
+        elif stappen[e][0][0][1] == stappen[0][0][0][1] and stappen[e][1][0][1] == stappen[0][1][0][1] and stappen[e][2][0][1] == stappen[0][2][0][1] and stappen[e][3][0][1] == stappen[0][3][0][1]:
+            if e%2 == 0 and "y" not in what:
+                what.append("y")
+                ycycle = e
+        elif stappen[e][0][0][2] == stappen[0][0][0][2] and stappen[e][1][0][2] == stappen[0][1][0][2] and stappen[e][2][0][2] == stappen[0][2][0][2] and stappen[e][3][0][2] == stappen[0][3][0][2]:
+            if e%2 == 0 and "z" not in what:
+                what.append("z")
+                zcycle = e
+comboxz = xcycle
+comboxy = xcycle
+while comboxz%zcycle != 0:
+    comboxz += xcycle
+while comboxy%ycycle != 0:
+    comboxy += xcycle
+comboxyz = comboxy
+while comboxyz%comboxz != 0:
+    comboxyz += comboxy
+
+#part 2:
+print(comboxyz)
+#312992287193064
